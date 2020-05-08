@@ -24,7 +24,17 @@ class UserPost extends FormRequest
     public function rules()
     {
         return [
-            
+            'name' =>           'required',
+
+
+
+
+
+            'email' =>[
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->id),
+            ]
         ];
     }
 }

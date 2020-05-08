@@ -14,4 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PageController@index')->name('home');
+
+
+
+    // Secção de Administração
 Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
+Route::get('admin/users', 'UserController@admin')->name('users');
