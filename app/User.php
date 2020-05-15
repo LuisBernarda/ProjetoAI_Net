@@ -43,4 +43,9 @@ class User extends Authenticatable
         'created_at' =>        'datetime',
         'updated_at' =>        'datetime', 
     ];
+
+    public function conta()
+    {
+        return $this->belongsToMany('App\Conta', 'autorizacoes_contas');
+    }
 }

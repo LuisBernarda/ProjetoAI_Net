@@ -19,10 +19,16 @@
         </div>
         <h1>Departamento de Engenharia Informática</h1>
 
-        <div class="avatar-area">
-            <span class="name-user">Maria Costa</span>
-            <img src="/img/default_img.png" alt="User img">
-        </div>
+        @auth
+            <div class="avatar-area">
+                <span class="name-user">{{Auth::user()->name}}</span>
+                <img src="{{Auth::user()->url_foto ? asset('storage/fotos/' . Auth::user()->url_foto) : asset('img/default_img.png') }}">
+            </div>
+        @else
+            <div class="avatar-area">
+                <a class="nav-link" href="{{ route('login') }}">Login</a>
+            </div>
+        @endauth
         <div id="menuIcon">
             <div class="bar1"></div>
             <div class="bar2"></div>
