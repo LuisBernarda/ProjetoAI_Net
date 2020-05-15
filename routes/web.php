@@ -22,8 +22,8 @@ Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
 
     //User admin
 Route::get('admin/users', 'UserController@admin')->name('users');
-Route::get('admin/users/alterarTipo', 'UserController@alterarTipo')->name('alterarTipo');
-Route::get('admin/users/alterarBloqueio', 'UserController@alterarBloqueio')->name('alterarBloqueio');
+Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('alterarTipo');
+//Route::get('admin/users/alterarBloqueio', 'UserController@alterarBloqueio')->name('alterarBloqueio');
 
 Auth::routes();
 
