@@ -18,15 +18,22 @@
             @foreach($users as $user)
                 <tr>
                     <td>
-                        <img src="{{$user->foto ? asset('storage/fotos/' . $user->foto) : asset('img/default_img.png') }}" alt="Foto do User" class="img-profile rounded-circle" style="width:40px;height:40px">
+                        <img src="{{$user->foto ? asset('storage/app/public/fotos/' . $user->foto) : asset('img/default_img.png') }}" alt="Foto do User" class="img-profile rounded-circle" style="width:40px;height:40px">
                     </td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
+                     <td>
+                    <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
+                    </td>
+                    <td>
+                    <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     {{ $users->withQueryString()->links() }}
 @endsection
+

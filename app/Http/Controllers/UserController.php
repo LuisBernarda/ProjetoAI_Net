@@ -15,4 +15,12 @@ class UserController extends Controller
     $users = $qry->paginate(15);
     return view('users.admin')->withUsers($users);
     }
+
+    public function alterarTipo(){
+        //todo
+    }
+
+    public function alterarBloqueio(){
+        //todo
+    }
 }
