@@ -25,7 +25,7 @@
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
                      <td>
-                    <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
+                    <a href="{{route('admin.users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
                     </td>
                     <td>
                     <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>

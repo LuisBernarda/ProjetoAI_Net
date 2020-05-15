@@ -25,11 +25,12 @@ class UserPost extends FormRequest
     {
         return [
             'name' =>           'required',
-
-
-
-
-
+            'password' =>       'required',
+            'adm'   =>          'required|boolean',
+            'bloqueado' =>      'required|boolean',
+            'NIF'   =>          'nullable|integer',
+            'telefone' =>       'nullable|digits:9',
+            'foto' =>           'nullable|image|max:8192',
             'email' =>[
                 'required',
                 'email',
