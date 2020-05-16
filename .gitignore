@@ -338,3 +338,17 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+/bootstrap/compiled.php
+/vendor
+
+ 
+
+
+/build/logs
+/build/coverage
+
+ 
+
+
+/app/tests/_log
