@@ -352,3 +352,35 @@ healthchecksdb
 
 
 /app/tests/_log
+
+ 
+
+
+composer.phar
+
+ 
+
+
+.DS_Store
+
+ 
+
+
+/.idea
+/_ide_helper.php
+
+ 
+
+
+/app/config/packages
+/public/packages
+
+ 
+
+
+/node_modules
+
+ 
+
+
+.env
