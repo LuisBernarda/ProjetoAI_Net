@@ -28,3 +28,9 @@ Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Secção Conta
+
+Route::get('conta', 'ContaController@index')->name('conta.index');
+Route::get('conta/create', 'ContaController@create')->name('conta.create');
+Route::post('conta', 'ContaController@store')->name('conta.store');

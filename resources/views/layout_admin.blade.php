@@ -43,6 +43,11 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
+      <li class="nav-item {{Route::currentRouteName()=='conta.index'? 'active': ''}}">
+        <a class="nav-link" href="{{route('conta.index')}}">
+          <i class="fas fa-fw fa-address-book"></i>
+          <span>Contas</span></a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -76,7 +81,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                 <img class="img-profile rounded-circle" src="/img/default_img.png">
               </a>
               <!-- Dropdown - User Information -->
@@ -101,7 +106,7 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-           
+
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
