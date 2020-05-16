@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class StoreConta extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreConta extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +26,12 @@ class StoreConta extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:post|max:20',
-            'descricao' => 'optional',
-            'saldo_abertura' => 'required',
+
+            'descricao' => 'nullable',
+            'saldo_abertura' => 'required|numeric',
+            'nome' => [Rule::unique('contas')->where(function ($query) {
+                return $query->where('user_id', Auth::user()->id);
+            }),'required','max:20']
         ];
     }
 }

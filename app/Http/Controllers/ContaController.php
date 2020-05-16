@@ -36,6 +36,17 @@ class ContaController extends Controller
 
         $validated = $request->validated();
 
+        $newConta= new Conta;
+        $newConta->user_id=Auth::user()->id;
+        $newConta->nome=$validated['nome'];
+        $newConta->descricao = $validated['descricao'];
+        $newConta->saldo_abertura = $validated['saldo_abertura'];
+        $newConta->saldo_atual = $validated['saldo_abertura'];
+        //dd($validated);
+        $newConta->save();
+
+         return redirect()->route('conta.index');
+
 
     }
 }
