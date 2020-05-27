@@ -18,9 +18,11 @@ class UserController extends Controller
 
     public function alterarTipo(){
         //todo
+        //return view(users.alterarTipo);
     }
 
     public function alterarBloqueio(){
         //todo
+        //return view(users.alterarBloqueio);
     }
 }
