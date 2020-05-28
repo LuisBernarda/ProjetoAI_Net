@@ -23,22 +23,30 @@ class UserController extends Controller
     return view('users.admin')->withUsers($users);
     }
 
-    public function alterarTipo(){
+    public function alterarTipo(User $user){
         //todo
-        return view(users.alterarTipo);
+        return view(users.alterarTipo)
+            ->withUsers($user);
     }
 
-    public function alterarBloqueio(){
+    public function alterarBloqueio(User $user){
         //todo
-        //return view(users.alterarBloqueio);
+        return view(users.alterarBloqueio)
+            ->withUsers($user);
     }
 
-    public function storeTipo(){
-        //todo
+    public function storeTipo(UserPost $request, User $user){
+
+        //tenho que testar
+        $validated_data = $request->validated();
+        $user->adm = $validated_data['adm'];
     }
 
-    public function storeBloqueio(){
-        //todo
+    public function storeBloqueio(UserPost $request, User $user){
+
+        //tenho que testar isto
+         $validated_data = $request->validated();
+        $user->adm = $validated_data['bloqueado'];
     }
 
     public function create(){
