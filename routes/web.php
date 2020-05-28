@@ -34,14 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('conta', 'ContaController@index')->name('conta.index');
 Route::get('conta/create', 'ContaController@create')->name('conta.create');
 Route::post('conta', 'ContaController@store')->name('conta.store');
-<<<<<<< HEAD
 Route::get('conta/{conta}/edit', 'ContaController@edit') ->name('conta.edit');
 Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
 Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy');
 Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.consultar');
-=======
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
->>>>>>> 941636ef645a0a8973e3225b2e344e8571384435
