@@ -1,17 +1,13 @@
 @extends('layout_admin')
+@section('title', 'Consultar Conta' )
 @section('content')
-    <h1>CONTA INDEX</h1>
-
-
-    <a href="{{route('conta.create')}}" class="btn btn-secondary">Create</a>
-
-    <table class="table">
+     <table class="table">
         <thead>
             <tr>
 
-                <th>Nome</th>
+                <th>Data</th>
+                <th>Movimento</th>
                 <th>Saldo</th>
-                <th>Acções</th>
 
             </tr>
         </thead>
@@ -34,8 +30,6 @@
             @endforeach
         </tbody>
     </table>
-
-
 
 
 

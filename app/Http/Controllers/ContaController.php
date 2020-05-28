@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\StoreConta;
 use App\Http\Requests\StoreConta as RequestsStoreConta;
+use App\Movimento;
 use Illuminate\Http\Request;
 
 class ContaController extends Controller
@@ -30,7 +31,12 @@ class ContaController extends Controller
 
     }
 
-    public function consultar(){
+    public function consultar(Conta $conta){
+
+        $qry = Movimento::with('conta_id');
+        dd($qry);
+
+
 
     }
 
@@ -68,8 +74,8 @@ class ContaController extends Controller
         $conta->user_id = Auth::user()->id;
         $conta->nome = $validated_data['nome'];
         $conta->descricao = $validated_data['descricao'];
-        //$conta->saldo_abertura = $validated_data['saldo_abertura'];
-        $conta->saldo_atual = $validated_data['saldo_atual'];
+        $conta->saldo_abertura = $validated_data['saldo_abertura'];
+        //$conta->saldo_atual = $validated_data['saldo_atual'];
         //dd($validated);
         $conta->save();
 
@@ -77,6 +83,32 @@ class ContaController extends Controller
             ->with('alert-msg', 'Conta "' . $conta->nome . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');;
 
+    }
+
+    public function destroy(Conta $conta)
+    {
+        $oldName = $conta->name;
+
+        try {
+            $conta->delete();
+            return redirect()->route('conta.index')
+                ->with('alert-msg', 'Conta "' . $conta->name . '" foi apagado com sucesso!')
+                ->with('alert-type', 'success');
+        } catch (\Throwable $th) {
+            // $th é a exceção lançada pelo sistema - por norma, erro ocorre no servidor BD MySQL
+            // Descomentar a próxima linha para verificar qual a informação que a exceção tem
+            //dd($th, $th->errorInfo);
+
+            if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                return redirect()->route('conta.index')
+                    ->with('alert-msg', 'Não foi possível apagar o Aluno "' . $oldName . '", porque este aluno já está em uso!')
+                    ->with('alert-type', 'danger');
+            } else {
+                return redirect()->route('conta.index')
+                    ->with('alert-msg', 'Não foi possível apagar o Aluno "' . $oldName . '". Erro: ' . $th->errorInfo[2])
+                    ->with('alert-type', 'danger');
+            }
+        }
     }
 
 

@@ -36,4 +36,5 @@ Route::get('conta/create', 'ContaController@create')->name('conta.create');
 Route::post('conta', 'ContaController@store')->name('conta.store');
 Route::get('conta/{conta}/edit', 'ContaController@edit') ->name('conta.edit');
 Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
-
+Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy');
+Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.consultar');

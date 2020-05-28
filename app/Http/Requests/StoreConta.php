@@ -31,7 +31,7 @@ class StoreConta extends FormRequest
             'saldo_atual' => 'numeric',
             'saldo_abertura' => 'required|numeric',
             'nome' => [Rule::unique('contas')->where(function ($query) {
-                return $query->where('user_id', Auth::user()->id)->where('id', '<>', $this->conta->id);
+                return $query->where('user_id', Auth::user()->id)->where('nome', '<>', $this->nome);
             }),'required', 'max:20']
         ];
     }
