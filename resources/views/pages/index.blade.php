@@ -29,9 +29,11 @@
 </ul>
 <h3>Objetivos</h3>
 <p>
-    Formar técnicos superiores qualificados a exercer a sua profissão com elevado nível de qualidade
-    científica, técnica, ética e de relações humanas e com capacidade de adaptação às constantes
-    mudanças tecnológicas.
+    Ajudar os utilizadores a gerir as suas finanças pessoais. Qualquer pessoa pode registar-se (criar uma conta)
+    na aplicação "Finanças Pessoais", assumindo-se desde logo como utilizador da aplicação. Os utilizadores da
+    aplicação têm um perfil publico, com o nome, email e foto (a foto é opcional) e uma área privada, onde poderão
+    registar todos os seus movimentos financeiros (receitas e despesas) organizados por contas, ver um sumário do
+    estado das suas finanças e aceder a informação estatística sobre as suas receitas e despesas.
 </p>
 <p>
     Contribuir para a criação e divulgação de conhecimento técnico e cientifico em diversas áreas da
