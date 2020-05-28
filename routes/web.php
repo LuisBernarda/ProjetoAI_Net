@@ -18,10 +18,8 @@ Route::get('/', 'PageController@index')->name('home');
 
 
     // Secção de Administração
-Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('admin', 'DashboardController@index')->name('admin.dashboard')
-            ->middleware('can:viewAny,App\Users');
-});
+Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
+
     //User admin
 Route::get('admin/users', 'UserController@admin')->name('users');
 Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('alterarTipo');
