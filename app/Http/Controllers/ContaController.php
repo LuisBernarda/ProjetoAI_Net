@@ -33,8 +33,13 @@ class ContaController extends Controller
 
     public function consultar(Conta $conta){
 
-        $qry = Movimento::with('conta_id');
-        dd($qry);
+
+        $movimentos = $conta->movimentos()->paginate(10);
+
+        return view('conta.consultar')
+            ->withMovimentos($movimentos)
+            ->withConta($conta);
+        //dd($movimentos);
 
 
 
@@ -81,7 +86,7 @@ class ContaController extends Controller
 
         return redirect()->route('conta.index')
             ->with('alert-msg', 'Conta "' . $conta->nome . '" foi alterado com sucesso!')
-            ->with('alert-type', 'success');;
+            ->with('alert-type', 'success');
 
     }
 

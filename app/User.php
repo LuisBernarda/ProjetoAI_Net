@@ -49,4 +49,9 @@ class User extends Authenticatable
         //return $this->belongsToMany('App\Conta', 'autorizacoes_contas');
         return $this->hasmany('App\Conta');
     }
+
+    public function movimentos()
+    {
+        return $this->hasManyThrough('App\Movimento', 'App\Conta');
+    }
 }
