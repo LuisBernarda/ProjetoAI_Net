@@ -20,21 +20,24 @@
     Conselho Pedagógico e Conselho Diretivo).
 </p>
 <p>
-    A organização do DEI está definida pelos estatutos da ESTG em:
+    A aplicação "Finanças Pessoais" atribui aos seus utilizadores os seguintes estatutos:
 </p>
 <ul>
-    <li>Coordenador;</li>
-    <li>Conselho de Departamento;</li>
-    <li>Plenário.</li>
+    <li>Administrador;</li>
+    <li>Utilizador Normal;</li>
+    <li>Utilizador Anónimo.</li>
 </ul>
-<h3>Objetivos</h3>
+<h3>Funcionalidades</h3>
 <p>
-    Formar técnicos superiores qualificados a exercer a sua profissão com elevado nível de qualidade
-    científica, técnica, ética e de relações humanas e com capacidade de adaptação às constantes
-    mudanças tecnológicas.
+    Criação de contas, tendo os utilizadores da aplicação têm um perfil publico, com o nome,
+    email e foto (a foto é opcional) e uma área privada, onde poderão registar todos os seus
+    movimentos financeiros (receitas e despesas) organizados por contas, ver um sumário do
+    estado das suas finanças e aceder a informação estatística sobre as suas receitas e despesas.
 </p>
 <p>
-    Contribuir para a criação e divulgação de conhecimento técnico e cientifico em diversas áreas da
-    engenharia informática.
+    Organização de movimentos por contas que podem representar contas no banco ou qualquer outra
+    forma de organização a definir pelo utilizador. Por exemplo, um utilizador pode ter as contas:
+    "conta à ordem do banco X", "conta poupança do banco Y", "dinheiro em caixa", "dinheiro para
+    urgências", "poupança para férias", "educação", "carro", "viagens", etc. 
 </p>
 @endsection

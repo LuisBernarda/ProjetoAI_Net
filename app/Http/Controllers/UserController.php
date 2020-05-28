@@ -45,7 +45,7 @@ class UserController extends Controller
     public function storeBloqueio(UserPost $request, User $user){
 
         //tenho que testar isto
-         $validated_data = $request->validated();
+        $validated_data = $request->validated();
         $user->adm = $validated_data['bloqueado'];
     }
 
@@ -53,12 +53,59 @@ class UserController extends Controller
         //todo
     }
 
-    public function edit(){
-        //todo
+    public function store(UserPost $request){
+
+        $validated_data = $request->validated();
+
+        $newUser = new User;
+        $newUser->name = $validated_data['name'];
+        $newUser->email = $validated_data['email'];
+        $newUser->NIF = $validated_data['NIF'];
+        $newUser->telefone = $validated_data['telefone'];
+        $newUser->password = Hash::make($validated_data['password']);
+        $newUser->adm = '0';
+        $newUser->bloqueado = '0';
+        if ($request->hasFile('foto')) {
+            $path = $request->foto->store('storage/app/public/fotos');
+            $newUser->foto = basename($path);
+        }
+        $newUser->save();
+
+        /*
+        //todo alert msg quando rotas tiverem OK
+        return redirect()->route('#')
+            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi criado com sucesso!')
+            ->with('alert-type', 'success');
+        */
+    }
+
+    public function update(UserPost $request, User $user){
+
+        $validated_data = $request->validated();
+
+        $user->name = $validated_data['name'];
+        $user->email = $validated_data['email'];
+        $user->NIF = $validated_data['NIF'];
+        $user->telefone = $validated_data['telefone'];
+        $user->password = Hash::make($validated_data['password']);
+        if ($request->hasFile('foto')) {
+            $path = $request->foto->store('storage/app/public/fotos');
+            $user->foto = basename($path);
+        }
+
+        $user->save();
+
+        /*
+        //todo alert msg quando rotas tiverem OK
+        return redirect()->route('#')
+            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi atualizado com sucesso!')
+            ->with('alert-type', 'success');
+        */
     }
 
     public function delete(){
         //todo
+        //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas do utilizador
     }
 
 
