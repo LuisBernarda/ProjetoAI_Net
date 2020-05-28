@@ -34,3 +34,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('conta', 'ContaController@index')->name('conta.index');
 Route::get('conta/create', 'ContaController@create')->name('conta.create');
 Route::post('conta', 'ContaController@store')->name('conta.store');
+Route::get('conta/{conta}/edit', 'ContaController@edit') ->name('conta.edit');
+Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
+

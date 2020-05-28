@@ -21,8 +21,10 @@
 
                     <td>{{$conta->nome}}</td>
                     <td>{{$conta->saldo_atual}}</td>
-                    <td><a class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a></td>
+                    <td><a class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
+                        <a href="{{route('conta.edit', ['conta' => $conta])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
 
+                    </td>
                 </tr>
             @endforeach
         </tbody>

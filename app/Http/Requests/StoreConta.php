@@ -24,14 +24,15 @@ class StoreConta extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {   //dd($this->conta->user_id);
         return [
 
             'descricao' => 'nullable',
+            'saldo_atual' => 'numeric',
             'saldo_abertura' => 'required|numeric',
             'nome' => [Rule::unique('contas')->where(function ($query) {
-                return $query->where('user_id', Auth::user()->id);
-            }),'required','max:20']
+                return $query->where('user_id', Auth::user()->id)->where('id', '<>', $this->conta->id);
+            }),'required', 'max:20']
         ];
     }
 }

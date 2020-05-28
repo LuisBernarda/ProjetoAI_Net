@@ -22,14 +22,25 @@ class ContaController extends Controller
             ->withContas($contas);
     }
 
+    public function edit(Conta $conta)
+    {
+        return view('conta.edit')
+            ->withConta($conta);
+
+
+    }
+
     public function consultar(){
 
     }
 
 
     public function create(){
+        $newConta = new Conta;
 
-        return view('conta.create');
+
+        return view('conta.create')
+            ->withConta($newConta);
     }
 
     public function store(RequestsStoreConta $request){
@@ -49,4 +60,24 @@ class ContaController extends Controller
 
 
     }
+
+    public function update(RequestsStoreConta $request, Conta $conta)
+    {
+        $validated_data = $request->validated();
+
+        $conta->user_id = Auth::user()->id;
+        $conta->nome = $validated_data['nome'];
+        $conta->descricao = $validated_data['descricao'];
+        //$conta->saldo_abertura = $validated_data['saldo_abertura'];
+        $conta->saldo_atual = $validated_data['saldo_atual'];
+        //dd($validated);
+        $conta->save();
+
+        return redirect()->route('conta.index')
+            ->with('alert-msg', 'Conta "' . $conta->nome . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');;
+
+    }
+
+
 }
