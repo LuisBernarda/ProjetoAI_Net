@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link rel="stylesheet" href="/css/estilos.css">
 
-    <title>Example</title>
+    <title>Projeto AInet</title>
 </head>
 
 <body>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="bt-area">
-                        <button type="button" class="bt">Refresh</button>
+                        <button type="button" class="bt" onclick='window.location.reload(true)'>Refresh</button>
                     </div>
                 </aside>
             </div>
