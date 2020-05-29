@@ -1,7 +1,7 @@
 @extends('layout_admin')
 @section('title','Alterar Tipo' )
 @section('content')
-    <form method="POST" action="{{route('users.storeTipo', ['user' => $user]) }}" class="form-group" enctype="multipart/form-data">
+    <form method="POST" action="{{route('users.storeTipo', ['user' => $user])}}" class="form-group">
         @csrf
         @method('PUT')
         <div class="form-group">

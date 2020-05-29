@@ -17,7 +17,7 @@
         <div id="logo">
             <img src="/img/logo.png" alt="Logo">
         </div>
-        <h1>Departamento de Engenharia Informática</h1>
+        <h1>ProjetoAInet</h1>
 
         @auth
             <div class="avatar-area">
@@ -27,6 +27,9 @@
         @else
             <div class="avatar-area">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
+            </div>
+            <div class="avatar-area">
+                <a class="nav-link" href="{{ route('register') }}">Registar</a>
             </div>
         @endauth
         <div id="menuIcon">
@@ -44,19 +47,15 @@
                 </li>
                 <li class="">
                     <i class="fas fa-box"></i>
-                    <a href="">Cursos</a>
+                    <a href="">Estatistica</a>
                 </li>
                 <li class="">
                     <i class="far fa-file"></i>
-                    <a href="">Disciplinas</a>
+                    <a href="">Contas</a>
                 </li>
                 <li class="">
                     <i class="fas fa-users"></i>
-                    <a href="">Docentes</a>
-                </li>
-                <li class="">
-                    <i class="fab fa-wpforms"></i>
-                    <a href="">Candidatura</a>
+                    <a href="">Utilizadores</a>
                 </li>
             </ul>
         </nav>
@@ -72,31 +71,7 @@
                     @endif
                     @yield('content')
                 </div>
-                <aside>
-                    <h3>Disciplinas</h3>
-                    <div class="disc-area">
-                        <div class="disc">
-                            <div class="disc-name">Programação I</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
-                        </div>
-                        <div class="disc">
-                            <div class="disc-name">Análise Matemática</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
-                        </div>
-                        <div class="disc">
-                            <div class="disc-name">Fisica Aplicada</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
-                        </div>
-                        <div class="disc">
-                            <div class="disc-name">Álgebra Linear</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
-                        </div>
-                    </div>
-                    <div class="bt-area">
-                        <button type="button" class="bt">Inscrever</button>
-                        <button type="button" class="bt">Limpar</button>
-                    </div>
-                </aside>
+               
             </div>
 
         </section>

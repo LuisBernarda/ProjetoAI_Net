@@ -38,9 +38,7 @@ class UserController extends Controller
 
     public function storeTipo(UserPost $request, User $user){
 
-        //tenho que testar
-        $validated_data = $request->validated();
-        $user->adm = $validated_data['adm'];
+        $user->adm = $request->adm;
         $user->save();
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
@@ -50,8 +48,8 @@ class UserController extends Controller
     public function storeBloqueio(UserPost $request, User $user){
 
         //tenho que testar isto
-        $validated_data = $request->validated();
-        $user->adm = $validated_data['bloqueado'];
+        
+        $user->bloqueado = $request->bloqueado;
         $user->save();
     }
 
