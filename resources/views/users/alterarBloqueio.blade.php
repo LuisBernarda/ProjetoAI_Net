@@ -1,5 +1,5 @@
 @extends('layout_admin')
-@section('title','Alterar Tipo' )
+@section('title','Alterar Bloqueio' )
 @section('content')
     <form method="POST" action="{{route('users.storeBloqueio', ['user' => $user])}}" class="form-group">
         @csrf

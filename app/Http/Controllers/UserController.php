@@ -108,7 +108,6 @@ class UserController extends Controller
         $user->email = $validated_data['email'];
         $user->NIF = $validated_data['NIF'];
         $user->telefone = $validated_data['telefone'];
-        $user->password = Hash::make($validated_data['password']);
         if ($request->hasFile('foto')) {
             Storage::delete('storage/app/public/fotos' . $user->foto);
             $path = $request->foto->store('storage/app/public/fotos');
