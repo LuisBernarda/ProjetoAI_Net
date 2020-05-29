@@ -17,7 +17,7 @@
         <div id="logo">
             <img src="/img/logo.png" alt="Logo">
         </div>
-        <h1>Departamento de Engenharia Informática</h1>
+        <h1>Finanças Pessoais</h1>
 
         @auth
             <div class="avatar-area">
