@@ -23,8 +23,8 @@
                 <select name="categoria" id="idCcategoria">
                     @foreach($categorias as $categoria)
                     
-                        <option value="{{$categoria->nome}}" {{old('categoria')==$categoria?'selected':''}}>{{$categoria->nome}} tipo: {{$categoria->tipo}}</option>
-                        {{-- <option value="{{$categoria->tipo}}"> --}}
+                        <option value={{$categoria->id}} {{old('categoria')==$categoria->id?'selected':''}}>{{$categoria->nome}} tipo: {{$categoria->tipo}}</option>
+                        
                     @endforeach
                 </select>
              
@@ -45,11 +45,11 @@
                     <input type="radio" name="tipo" id="idTipoD" value="D" {{old('tipo')=='D'?'checked':''}}>
                     <label for="idTipoD">Despesa</label>
                 </div>
+            </div>
+</div>
                 @error('tipo')
                     <div class="error">{{ $message }}</div>
                 @enderror
-            </div>
-        </div>
 
 <div class="form-group">
     <label for="inputDescricao">Descrição do Movimento</label>

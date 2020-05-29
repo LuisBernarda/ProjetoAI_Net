@@ -59,9 +59,9 @@ class ContaController extends Controller
     }
 
     public function store(RequestsStoreConta $request){
-
+        
         $validated = $request->validated();
-
+        
         $newConta= new Conta;
         $newConta->user_id=Auth::user()->id;
         $newConta->nome=$validated['nome'];

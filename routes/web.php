@@ -50,9 +50,9 @@ Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.
 
 //Movimentos
 Route::get('conta/{movimento}/detalhes', 'MovimentoController@consultar')->name('conta.movimentos.consultar');
-Route::get('conta/{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
-Route::post('conta', 'MovimentoController@store')->name('conta.movimentos.store');
-
+Route::get('conta//{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
+Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
+Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
 
 
 Auth::routes();
