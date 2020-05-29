@@ -36,7 +36,7 @@ Route::get('conta/{conta}/edit', 'ContaController@edit') ->name('conta.edit');
 Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
 Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy');
 Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.consultar');
-
+=======
 
 Auth::routes();
 
