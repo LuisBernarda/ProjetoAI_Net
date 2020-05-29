@@ -26,7 +26,7 @@ class StoreMovimento extends FormRequest
         return [
             'data'=>'date|required',
             'valor'=>'numeric|required',
-            'tipo'=>'required',
+            'tipo'=>'required|string',
             'descricao' => 'nullable',
             'categoria' => 'nullable|numeric'
         ];
