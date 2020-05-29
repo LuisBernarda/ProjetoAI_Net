@@ -189,6 +189,10 @@ aside{
 .disc-name{
     flex-grow: 1;
 }
+.disc-count{
+    flex-grow: 1;
+    text-align: right;
+}
 .bt-area{
     display:flex;
     flex-direction: row;
