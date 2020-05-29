@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserPost;
 
 
 class UserController extends Controller
@@ -15,24 +16,24 @@ class UserController extends Controller
         //todo
     }
     
-    public function admin(Request $request){
+    public function admin(){
 
     $qry = User::query();
     $users = $qry->paginate(15);
-    dd($users);
+    //dd($users);
     return view('users.admin')->withUsers($users);
     }
 
     public function alterarTipo(User $user){
         //todo
-        return view(users.alterarTipo)
-            ->withUsers($user);
+        return view('users.alterarTipo')
+            ->withUser($user);
     }
 
     public function alterarBloqueio(User $user){
         //todo
-        return view(users.alterarBloqueio)
-            ->withUsers($user);
+        return view('users.alterarBloqueio')
+            ->withUser($user);
     }
 
     public function storeTipo(UserPost $request, User $user){
@@ -40,6 +41,10 @@ class UserController extends Controller
         //tenho que testar
         $validated_data = $request->validated();
         $user->adm = $validated_data['adm'];
+        $user->save();
+        return redirect()->route('admin.users')
+            ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');
     }
 
     public function storeBloqueio(UserPost $request, User $user){
@@ -47,6 +52,7 @@ class UserController extends Controller
         //tenho que testar isto
         $validated_data = $request->validated();
         $user->adm = $validated_data['bloqueado'];
+        $user->save();
     }
 
     public function create(){
@@ -89,6 +95,7 @@ class UserController extends Controller
         $user->telefone = $validated_data['telefone'];
         $user->password = Hash::make($validated_data['password']);
         if ($request->hasFile('foto')) {
+            Storage::delete('storage/app/public/fotos' . $user->foto);
             $path = $request->foto->store('storage/app/public/fotos');
             $user->foto = basename($path);
         }
@@ -105,8 +112,7 @@ class UserController extends Controller
 
     public function delete(){
         //todo
-        //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas do utilizador
+        //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas que pertencem ao utilizador
     }
-
 
 }

@@ -25,10 +25,10 @@
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
                      <td>
-                    <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
+                    <a href="{{route('alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
                     </td>
                     <td>
-                    <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>
+                    <a href="{{route('alterarBloqueio', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>
                     </td>
                 </tr>
             @endforeach

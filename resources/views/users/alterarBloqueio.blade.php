@@ -9,7 +9,7 @@
                 <input type="hidden" name="bloqueado" value="0">
                 <input type="checkbox" class="form-check-input" id="inputBloqueado" name="bloqueado" value="1" {{old('bloqueado', $user->bloqueado) == '1' ? 'checked' : ''}}>
                 <label class="form-check-label" for="inputBloqueado">
-                    Bloqueio Utilizador
+                    Bloqueado
                 </label>
             </div>
             @error('bloqueado')

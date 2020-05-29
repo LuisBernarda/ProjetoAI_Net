@@ -15,6 +15,7 @@ class User extends Authenticatable
     protected $primarykey = 'id';
     protected $keytype = 'integer';
 
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -42,11 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' =>        'datetime',
         'updated_at' =>        'datetime',
+        
     ];
 
     public function contas()
     {
         //return $this->belongsToMany('App\Conta', 'autorizacoes_contas');
-        return $this->hasmany('App\Conta');
+        return $this->hasMany('App\Conta');
     }
 }
