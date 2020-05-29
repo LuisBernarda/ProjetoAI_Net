@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\StoreConta;
 use App\Http\Requests\StoreConta as RequestsStoreConta;
 use App\Movimento;
+use App\Categoria;
 use Illuminate\Http\Request;
 
 class ContaController extends Controller
@@ -34,12 +35,14 @@ class ContaController extends Controller
     public function consultar(Conta $conta){
 
 
-        $movimentos = $conta->movimentos()->paginate(10);
-
+        $movimentos = $conta->movimentos()->orderBy('data')->paginate(2);
+        
         return view('conta.consultar')
             ->withMovimentos($movimentos)
             ->withConta($conta);
-        //dd($movimentos);
+            // ->withCategoria($categoria);
+
+        //dd($categoria);
 
 
 

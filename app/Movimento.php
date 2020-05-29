@@ -15,4 +15,9 @@ class Movimento extends Model
         return $this->belongsTo('App\Conta');
     }
 
+      public function categoria()
+    {
+        return $this->hasOne('App\Categoria','id');
+    }
+
 }
