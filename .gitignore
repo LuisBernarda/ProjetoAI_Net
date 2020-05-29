@@ -362,7 +362,7 @@ composer.phar
 
 /app/config/packages
 /public/packages
-
+/public/js
 
 /node_modules
 
