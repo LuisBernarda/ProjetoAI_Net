@@ -6,7 +6,7 @@ use App\Conta;
 use Illuminate\Support\Facades\Auth;
 
 // use App\Http\Controllers\StoreConta;
-use App\Http\Requests\StoreConta; //as RequestsStoreConta;
+use App\Http\Requests\StoreConta as RequestsStoreConta;
 use App\Movimento;
 use App\Categoria;
 use Illuminate\Http\Request;
@@ -53,13 +53,13 @@ class ContaController extends Controller
     public function create(){
         $newConta = new Conta;
 
-
+        
         return view('conta.create')
             ->withConta($newConta);
     }
 
-    public function store(StoreConta $request){
-        
+    public function store(RequestsStoreConta $request){
+        //dd("STORE");
         $validated = $request->validated();
         
         $newConta= new Conta;
@@ -76,7 +76,7 @@ class ContaController extends Controller
 
     }
 
-    public function update(StoreConta $request, Conta $conta)
+    public function update(RequestsStoreConta $request, Conta $conta)
     {
         $validated_data = $request->validated();
 
