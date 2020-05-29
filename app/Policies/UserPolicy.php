@@ -29,12 +29,8 @@ class UserPolicy
         return optional($user)->id;
     }
 
-    public function viewBloqueado(User $user)
-    {
-        return $user->bloqueado;
-    }
-
-    public function alterarAdmBlq(User $user)
+   
+    public function viewAdm(User $user)
     {
         return $user->adm;
     }

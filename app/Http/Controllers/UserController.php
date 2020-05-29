@@ -53,8 +53,9 @@ class UserController extends Controller
 
         //not functional
         
-        $user->bloqueado = $request->bloqueado;
-        $user->save();
+        $validated_data = $request->only($this->bloqueado);
+        $user->bloqueado = $validated_data;
+        $user->save;
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');

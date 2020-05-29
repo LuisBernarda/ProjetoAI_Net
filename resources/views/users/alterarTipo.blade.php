@@ -7,8 +7,8 @@
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <input type="hidden" name="adm" value="0">
-                <input type="checkbox" class="form-check-input" id="adm" name="adm" value="1" {{old('adm', $user->adm) == '1' ? 'checked' : ''}}>
-                <label class="form-check-label" for="adm">
+                <input type="checkbox" class="form-check-input" id="idAdm" name="adm" value="1" {{old('adm', $user->adm) == '1' ? 'checked' : ''}}>
+                <label class="form-check-label" for="idAdm">
                     Administrador
                 </label>
             </div>
