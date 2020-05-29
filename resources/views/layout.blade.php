@@ -27,14 +27,11 @@
 
         @else
             <div class="avatar-area">
-                <!-- <a class="nav-link" href="{{ route('login') }}">Login</a> -->
-                @include('partials.topbar')
+                <a class="nav-link" href="{{ route('login') }}">Login</a>
             </div>
-            <!-- 
             <div class="avatar-area">
                 <a class="nav-link" href="{{ route('users.create') }}">Registar</a>
             </div>
-            -->
         @endauth
         <div id="menuIcon">
             <div class="bar1"></div>
