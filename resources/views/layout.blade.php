@@ -49,10 +49,18 @@
                     <i class="fas fa-box"></i>
                     <a href="">Estatistica</a>
                 </li>
+                @auth
+                <li class="">
+                    <i class="far fa-file"></i>
+                    <a href={{route('conta.index')}}>Contas</a>
+                </li>
+                @else
                 <li class="">
                     <i class="far fa-file"></i>
                     <a href="">Contas</a>
                 </li>
+                @endauth
+                
                 <li class="">
                     <i class="fas fa-users"></i>
                     <a href="">Utilizadores</a>
