@@ -49,7 +49,7 @@ body{
 header{
     display:flex;
     flex-direction: row;
-    height:150px;
+    height:100px;
     color:rgb(85, 0, 0);
     background-color: goldenrod;
     align-items: center;
@@ -110,7 +110,7 @@ nav{
     min-width: 180px;
     min-height: 150px;
     color: silver;
-    overflow: visible;
+    overflow: hidden;
     transition: max-height 1s;
 }
 nav ul{
