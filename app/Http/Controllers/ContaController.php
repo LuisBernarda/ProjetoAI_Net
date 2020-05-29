@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Conta;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Controllers\StoreConta;
-use App\Http\Requests\StoreConta as RequestsStoreConta;
+// use App\Http\Controllers\StoreConta;
+use App\Http\Requests\StoreConta; //as RequestsStoreConta;
 use App\Movimento;
 use App\Categoria;
 use Illuminate\Http\Request;
@@ -36,8 +36,8 @@ class ContaController extends Controller
     public function consultar(Conta $conta){
 
 
-        $movimentos = $conta->movimentos()->orderBy('data')->paginate(2);
-        
+        //$movimentos = $conta->movimentos()->orderBy('data')->paginate(10);
+        $movimentos = $conta->movimentos()->orderBy('data','DESC')->paginate(10);
         return view('conta.consultar')
             ->withMovimentos($movimentos)
             ->withConta($conta);
@@ -58,7 +58,7 @@ class ContaController extends Controller
             ->withConta($newConta);
     }
 
-    public function store(RequestsStoreConta $request){
+    public function store(StoreConta $request){
         
         $validated = $request->validated();
         
@@ -76,7 +76,7 @@ class ContaController extends Controller
 
     }
 
-    public function update(RequestsStoreConta $request, Conta $conta)
+    public function update(StoreConta $request, Conta $conta)
     {
         $validated_data = $request->validated();
 
