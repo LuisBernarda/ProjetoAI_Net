@@ -1,10 +1,9 @@
 @extends('layout_admin')
+@section('title', 'Contas do Utilizador' )
 @section('content')
-    <h1>CONTA INDEX</h1>
-
-
-    <a href="{{route('conta.create')}}" class="btn btn-secondary">Create</a>
-
+<div class="form-group text-left">
+    <a href="{{route('conta.create')}}" class="btn btn-secondary">Nova Conta</a>
+</div>
     <table class="table">
         <thead>
             <tr>
@@ -29,6 +28,7 @@
                             @method("DELETE")
                             <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
                         </form>
+                        
                     </td>
                 </tr>
             @endforeach
