@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PageController@index')->name('home');
+Route::get('/', 'PageController@index')->name('apresentacao');
 
 
 
@@ -25,9 +25,12 @@ Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
 Route::get('users', 'UserController@index')->name('users.index');
 Route::get('users/create', 'UserController@create')->name('users.create');
 Route::post('users', 'UserController@store')->name('users.store');
-//Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
-//Route::get('users/{user}', 'UserController@update')->name('users.update');
+Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+Route::put('users/{user}', 'UserController@update')->name('users.update');
+Route::delete('users/{user}/foto', 'UserController@destroy_foto')->name('users.foto.destroy');
+Route::get('users/{user}/editPassword', 'UserController@mudarPass')->name('users.mudarPass');
 
+    //seccao adm users
 Route::get('admin/users', 'UserController@admin')->name('admin.users');
 Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('alterarTipo');
 Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('alterarBloqueio');
@@ -47,9 +50,9 @@ Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.
 
 //Movimentos
 Route::get('conta/{movimento}/detalhes', 'MovimentoController@consultar')->name('conta.movimentos.consultar');
-Route::get('conta/{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
-Route::post('conta', 'MovimentoController@store')->name('conta.movimentos.store');
-
+Route::get('conta//{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
+Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
+Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
 
 
 Auth::routes();

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <link rel="stylesheet" href="/css/estilos.css">
 
-    <title>Projeto AInet</title>
+    <title>ProjetoAInet</title>
 </head>
 
 <body>
@@ -22,8 +22,9 @@
         @auth
             <div class="avatar-area">
                 <span class="name-user">{{Auth::user()->name}}</span>
-                <img src="{{Auth::user()->url_foto ? asset('storage/fotos/' . Auth::user()->url_foto) : asset('img/default_img.png') }}">
+                <img src="{{Auth::user()->url_foto ? asset('storage/app/public/fotos/' . Auth::user()->url_foto) : asset('img/default_img.png') }}">
             </div>
+
         @else
             <div class="avatar-area">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -37,6 +38,7 @@
             <div class="bar2"></div>
             <div class="bar3"></div>
         </div>
+
     </header>
     <div class="container">
         <nav>
@@ -57,7 +59,7 @@
                 @else
                 <li class="">
                     <i class="far fa-file"></i>
-                    <a href="">Contas</a>
+                    <a href={{ route('login') }}>Contas</a>
                 </li>
                 @endauth
                 
@@ -65,6 +67,21 @@
                     <i class="fas fa-users"></i>
                     <a href="">Utilizadores</a>
                 </li>
+                @auth
+                <li class="">
+                    <i class="far fa-file"></i>
+                    <a href="{{route('users.edit', ['user' => Auth::user()]) }}">Perfil</a>
+                </li>
+                <li>
+                    <i class="fab fa-wpforms"></i>
+                    <a href="{{route('logout')}}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+                
+                @endauth
             </ul>
         </nav>
 
@@ -96,7 +113,7 @@
                         </div>
                     </div>
                     <div class="bt-area">
-                        <button type="button" class="bt" onclick='window.location.reload(true)'>Refresh</button>
+                        <button type="button" class="bt">Refresh</button>
                     </div>
                 </aside>
             </div>

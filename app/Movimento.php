@@ -17,11 +17,11 @@ class Movimento extends Model
 
       public function categoria()
     {
-        return $this->hasOne('App\Categoria','id');
+        return $this->hasOne('App\Categoria','id','categoria_id');
     }
 
     public function categorias(){
-        return $this->hasmany('App\Categoria','id');
+        return $this->hasmany('App\Categoria','categoria_id','id');
     }
 
 }

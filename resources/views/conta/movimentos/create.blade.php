@@ -1,6 +1,7 @@
 @extends('layout_admin')
 @section('title', 'Novo Movimento' )
 @section('content')
+
     <form method="POST" action="{{route('conta.movimentos.store',['conta'=>$conta])}}" class="form-group">
         @csrf
         @include('conta.movimentos.partials.create')

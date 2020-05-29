@@ -28,19 +28,20 @@ class UserController extends Controller
     }
 
     public function alterarTipo(User $user){
-        //todo
+        
         return view('users.alterarTipo')
             ->withUser($user);
     }
 
     public function alterarBloqueio(User $user){
-        //todo
+        
         return view('users.alterarBloqueio')
             ->withUser($user);
     }
 
     public function storeTipo(UserPost $request, User $user){
 
+        //not functional
         $user->adm = $request->adm;
         $user->save();
         return redirect()->route('admin.users')
@@ -50,7 +51,7 @@ class UserController extends Controller
 
     public function storeBloqueio(UserPost $request, User $user){
 
-        //tenho que testar isto
+        //not functional
         
         $user->bloqueado = $request->bloqueado;
         $user->save();
@@ -92,8 +93,10 @@ class UserController extends Controller
         */
     }
 
-    public function edit(){
-        //todo
+    public function edit(User $user){
+
+        return view('users.edit')
+            ->withUser($user);
     }
 
     public function update(UserPost $request, User $user){
@@ -121,6 +124,12 @@ class UserController extends Controller
         */
     }
 
+    public function mudarPass(User $user)
+    {
+        return view('users.editPassword')
+            ->withUser($user);
+    }
+
     public function delete(){
         //todo
         //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas que pertencem ao utilizador
@@ -135,5 +144,7 @@ class UserController extends Controller
             ->with('alert-msg', 'Foto do user "' . $user->name . '" foi removida!')
             ->with('alert-type', 'success');
     }
+
+    
 
 }

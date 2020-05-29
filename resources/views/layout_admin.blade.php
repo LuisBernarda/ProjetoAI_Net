@@ -27,11 +27,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('apresentacao')}}">
         <div class="sidebar-brand-icon">
             <img src="/img/logo.png" alt="Logo" class="logo-img">
         </div>
-        <div class="sidebar-brand-text mx-3">DEI</div>
+        <div class="sidebar-brand-text mx-3">AiNET</div>
       </a>
 
       <!-- Divider -->
@@ -130,7 +130,11 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary"  href="{{route('logout')}}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
         </div>
       </div>
     </div>
