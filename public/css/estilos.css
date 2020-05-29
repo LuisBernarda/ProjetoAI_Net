@@ -49,7 +49,7 @@ body{
 header{
     display:flex;
     flex-direction: row;
-    height:100px;
+    height:150px;
     color:rgb(85, 0, 0);
     background-color: goldenrod;
     align-items: center;
@@ -106,10 +106,11 @@ section{
 
 /*Formatação da área de navegação*/
 nav{
-    background-color: rgb(85, 0, 0);
+    background-color: gold;
     min-width: 180px;
+    min-height: 150px;
     color: silver;
-    overflow: hidden;
+    overflow: visible;
     transition: max-height 1s;
 }
 nav ul{
@@ -128,7 +129,7 @@ nav li{
 }
 nav i,nav a{
     display:inline-block;
-    color:silver;
+    color:rgb(85, 0, 0);
     text-decoration: none;
 }
 nav i{
