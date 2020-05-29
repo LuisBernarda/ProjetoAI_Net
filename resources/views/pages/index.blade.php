@@ -1,8 +1,17 @@
 @extends('layout')
 @section('content')
-<h2>Apresentação</h2>
 <p>
-    A aplicação "Finanças Pessoais" atribui aos seus utilizadores os seguintes estatutos:
+    A aplicação de gestão de finanças desenvolvida como projeto da unidade curricular "Aplicações para a Internet",
+    do curso de Engenharia Informática da ESTG por:
+</p>
+<ul>
+    <li>André Machado - nº2181620</li>
+    <li>Lucas Baptista - nº2181864</li>
+    <li>Luís Bernarda - nº2181865</li>
+</ul>
+<p>
+    A aplicação "Finanças Pessoais" permite a gestão de várias contas diferentes e
+    atribui aos seus utilizadores os seguintes estatutos:
 </p>
 <ul>
     <li>Administrador;</li>

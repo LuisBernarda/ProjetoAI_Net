@@ -17,7 +17,7 @@
         <div id="logo">
             <img src="/img/logo.png" alt="Logo">
         </div>
-        <h1>ProjetoAInet</h1>
+        <h1>Finanças Pessoais</h1>
 
         @auth
             <div class="avatar-area">
@@ -71,7 +71,23 @@
                     @endif
                     @yield('content')
                 </div>
-               
+               <aside>
+                    <h3>Estatísticas Gerais</h3>
+                    <div class="disc-area">
+                        <div class="disc">
+                            <div class="disc-name">Nº Utilizadores: </div>
+                        </div>
+                        <div class="disc">
+                            <div class="disc-name">Nº Contas: </div>
+                        </div>
+                        <div class="disc">
+                            <div class="disc-name">Nº Movimentos:</div>
+                        </div>
+                    </div>
+                    <div class="bt-area">
+                        <button type="button" class="bt">Refresh</button>
+                    </div>
+                </aside>
             </div>
 
         </section>
