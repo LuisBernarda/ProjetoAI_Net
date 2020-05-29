@@ -13,15 +13,18 @@ class UserController extends Controller
 {
 
     public function index(){
-        //todo
+        $qry = User::query();
+        $users = $qry->paginate(10);
+        //dd($users);
+        return view('users.index')->withUsers($users);
     }
     
     public function admin(){
 
-    $qry = User::query();
-    $users = $qry->paginate(15);
-    //dd($users);
-    return view('users.admin')->withUsers($users);
+        $qry = User::query();
+        $users = $qry->paginate(15);
+        //dd($users);
+        return view('users.admin')->withUsers($users);
     }
 
     public function alterarTipo(User $user){
