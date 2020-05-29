@@ -168,7 +168,7 @@ footer{
 
 /*Formatação da área aside e dos seus items*/
 aside{
-    min-width:180px;
+    min-width:200px;
     background-color: rgba(0, 0, 0, 0.05);
     padding:15px;
     font-size: 12pt;

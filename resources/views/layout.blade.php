@@ -84,12 +84,15 @@
                     <div class="disc-area">
                         <div class="disc">
                             <div class="disc-name">Nº Utilizadores: </div>
+                            <a class="disc-name"> {{ $totalUsers = DB::table('users')->count() }}</a>
                         </div>
                         <div class="disc">
                             <div class="disc-name">Nº Contas: </div>
+                            <a class="disc-name"> {{ $totalContas = DB::table('contas')->count() }}</a>
                         </div>
                         <div class="disc">
                             <div class="disc-name">Nº Movimentos:</div>
+                            <a class="disc-name"> {{ $totalMovimentos = DB::table('movimentos')->count() }}</a>
                         </div>
                     </div>
                     <div class="bt-area">
