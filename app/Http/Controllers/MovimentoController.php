@@ -32,17 +32,19 @@ class MovimentoController extends Controller
     }
 
     public function create(Conta $conta){
+        
         $newMovimento=new Movimento;
         $listaCategorias= Categoria::all();
         //dd($listaCategorias);
         return view('conta.movimentos.create')
             ->withMovimento($newMovimento)
-            ->withCategorias($listaCategorias);
+            ->withCategorias($listaCategorias)
+            ->withConta($conta);
     } 
 
     public function store(RequestsStoreMovimento $request,Conta $conta){
          $validated = $request->validated();
-         
+         //dd($validated['categoria']);
          $newMovimento=new Movimento;
          $newMovimento->conta_id=$conta->id;
          $newMovimento->data=$validated['data'];
@@ -50,10 +52,26 @@ class MovimentoController extends Controller
          $newMovimento->saldo_inicial=$conta->saldo_abertura;
          if ($validated['tipo']==="D") {
              $newMovimento->saldo_final=$conta->saldo_atual-$newMovimento->valor;
+         }else {
+             $newMovimento->saldo_final=$conta->saldo_atual+$newMovimento->valor;
          }
-         $newMovimento->saldo_final
+         $conta->saldo_atual=$newMovimento->saldo_final;
+         $newMovimento->tipo=$validated['tipo'];
+         $newMovimento->categoria_id=$validated['categoria'];
+         $newMovimento->descricao=$validated['descricao'];
+         
+         $newMovimento->save();
+         $conta->save();
+
+          //return redirect()->route('conta.movimentos.movimento_detalhes');
+        return redirect()->route('conta.consultar', [$conta]);
 
 
+    }
 
+    public function edit(Conta $conta,Movimento $movimento)
+    {
+        return view('conta.movimentos.edit')
+             ->withConta($movimento);
     }
 }
