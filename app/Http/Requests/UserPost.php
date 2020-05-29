@@ -30,7 +30,7 @@ class UserPost extends FormRequest
             'adm'   =>          'required|boolean',
             'bloqueado' =>      'required|boolean',
             'NIF'   =>          'nullable|integer',
-            'telefone' =>       'nullable|digits:9',
+            'telefone' =>       'nullable',
             'foto' =>           'nullable|image|max:8192',
             'email' =>[
                 'required',
