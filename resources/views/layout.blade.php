@@ -29,7 +29,7 @@
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
             </div>
             <div class="avatar-area">
-                <a class="nav-link" href="{{ route('register') }}">Registar</a>
+                <a class="nav-link" href="{{ route('users.create') }}">Registar</a>
             </div>
         @endauth
         <div id="menuIcon">

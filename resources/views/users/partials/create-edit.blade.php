@@ -13,13 +13,6 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="text" class="form-control" name="password" id="inputPassword" value="{{old('password', $user->password)}}" >
-    @error('password')
-        <div class="small text-danger">{{$message}}</div>
-    @enderror
-</div>
-<div class="form-group">
     <label for="inputPassword">NIF</label>
     <input type="text" class="form-control" name="NIF" id="inputNIF" value="{{old('NIF', $user->NIF)}}" >
     @error('NIF')

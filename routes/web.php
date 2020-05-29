@@ -23,8 +23,8 @@ Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
     //Seccao users
 
 Route::get('users', 'UserController@index')->name('users.index');
-//Route::get('users/create', 'UserController@create')->name('users.create');
-//Route::get('users', 'UserController@store')->name('users.store');
+Route::get('users/create', 'UserController@create')->name('users.create');
+Route::post('users', 'UserController@store')->name('users.store');
 //Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
 //Route::get('users/{user}', 'UserController@update')->name('users.update');
 
