@@ -73,28 +73,20 @@
                     @yield('content')
                 </div>
                 <aside>
-                    <h3>Disciplinas</h3>
+                    <h3>Estatísticas Gerais</h3>
                     <div class="disc-area">
                         <div class="disc">
-                            <div class="disc-name">Programação I</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
+                            <div class="disc-name">Nº Utilizadores: </div>
                         </div>
                         <div class="disc">
-                            <div class="disc-name">Análise Matemática</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
+                            <div class="disc-name">Nº Contas: </div>
                         </div>
                         <div class="disc">
-                            <div class="disc-name">Fisica Aplicada</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
-                        </div>
-                        <div class="disc">
-                            <div class="disc-name">Álgebra Linear</div>
-                            <div class="del-disc"><i class="far fa-trash-alt"></i></div>
+                            <div class="disc-name">Nº Movimentos:</div>
                         </div>
                     </div>
                     <div class="bt-area">
-                        <button type="button" class="bt">Inscrever</button>
-                        <button type="button" class="bt">Limpar</button>
+                        <button type="button" class="bt">Refresh</button>
                     </div>
                 </aside>
             </div>
