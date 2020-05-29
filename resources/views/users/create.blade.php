@@ -15,7 +15,7 @@
                 
                     <button type="submit" class="btn btn-success" name="ok">Save</button>
                
-                <a href="{{route('home')}}" class="btn btn-secondary">Cancel</a>
+                <a href="{{route('apresentacao')}}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 @endsection
