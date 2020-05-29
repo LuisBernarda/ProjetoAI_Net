@@ -51,10 +51,16 @@ class UserController extends Controller
         
         $user->bloqueado = $request->bloqueado;
         $user->save();
+        return redirect()->route('admin.users')
+            ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');
     }
 
     public function create(){
-        //todo
+
+        $newUser = new User;
+        return view('users.create')
+            ->withUser($newUser);
     }
 
     public function store(UserPost $request){
@@ -81,6 +87,10 @@ class UserController extends Controller
             ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
         */
+    }
+
+    public function edit(){
+        //todo
     }
 
     public function update(UserPost $request, User $user){
@@ -111,6 +121,16 @@ class UserController extends Controller
     public function delete(){
         //todo
         //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas que pertencem ao utilizador
+    }
+
+    public function destroy_foto(User $user)
+    {
+        Storage::delete('public/app/public/fotos/' . $user->foto);
+        $user->foto = null;
+        $user->save();
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('alert-msg', 'Foto do user "' . $user->name . '" foi removida!')
+            ->with('alert-type', 'success');
     }
 
 }
