@@ -12,6 +12,8 @@
                 <th>Valor</th>
                 <th>Saldo Final</th>
                 <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Data</th>
 
             </tr>
         </thead>
@@ -21,7 +23,9 @@
 
                     <td>{{$movimento->valor}}</td>
                     <td>{{$movimento->saldo_final}}</td>
-                    <td>{{$movimento->tipo}}</td>
+                    <td>{{$movimento->categoria->tipo}}</td>
+                    <td>{{$movimento->categoria->nome}}</td>
+                    <td>{{$movimento->data}}</td>
                 </tr>
             @endforeach
         </tbody>
