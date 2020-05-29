@@ -10,6 +10,7 @@ use App\Http\Requests\StoreConta as RequestsStoreConta;
 use App\Movimento;
 use App\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class ContaController extends Controller
 {
@@ -82,8 +83,8 @@ class ContaController extends Controller
         $conta->user_id = Auth::user()->id;
         $conta->nome = $validated_data['nome'];
         $conta->descricao = $validated_data['descricao'];
-        $conta->saldo_abertura = $validated_data['saldo_abertura'];
-        //$conta->saldo_atual = $validated_data['saldo_atual'];
+        //$conta->saldo_abertura = $validated_data['saldo_abertura'];
+        $conta->saldo_atual = $validated_data['saldo_atual'];
         //dd($validated);
         $conta->save();
 
@@ -117,6 +118,19 @@ class ContaController extends Controller
                     ->with('alert-type', 'danger');
             }
         }
+    }
+
+    public function detalhesMovimento(Movimento $movimento,Conta $conta){
+        
+        // if ($movimento->imagem_doc->file()) {
+        //     $documento=$movimento->imagem_doc;
+        // }else{
+        //     $documento="";
+        // }
+       
+            //dd($conta);
+        return view('conta.movimento_detalhes')
+            ->withMovimento($movimento);
     }
 
 

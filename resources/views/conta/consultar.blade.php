@@ -3,8 +3,11 @@
 @section('content')
 
     <h3>Conta: {{$conta->nome}}</h3>
+    <h4>Saldo Inicial: <b>{{$conta->saldo_abertura}}</b> | Saldo Atual: <b>{{$conta->saldo_atual}}</b></h4>
     <p>{{$conta->descricao}}</p>
-
+    <div class="form-group text-left">
+            <a href="{{route('conta.movimentos.create',['conta'=>$conta])}}" class="btn btn-secondary">Novo Movimento</a>
+    </div>
      <table class="table">
         <thead>
             <tr>
@@ -14,6 +17,7 @@
                 <th>Tipo</th>
                 <th>Categoria</th>
                 <th>Data</th>
+                
 
             </tr>
         </thead>
@@ -26,13 +30,14 @@
                     <td>{{$movimento->categoria->tipo}}</td>
                     <td>{{$movimento->categoria->nome}}</td>
                     <td>{{$movimento->data}}</td>
+                    <td><a href="{{route('conta.movimentos.consultar', ['movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <div class="form-group text-left">
-            <a href="{{route('conta.index')}}" class="btn btn-secondary">Voltar</a>
-    </div>
 
     {{ $movimentos->withQueryString()->links() }}
+     <div class="form-group text-left">
+            <a href="{{route('conta.index')}}" class="btn btn-secondary">Voltar</a>
+    </div>
 @endsection

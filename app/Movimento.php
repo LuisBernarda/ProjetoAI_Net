@@ -20,4 +20,8 @@ class Movimento extends Model
         return $this->hasOne('App\Categoria','id');
     }
 
+    public function categorias(){
+        return $this->hasmany('App\Categoria','id');
+    }
+
 }
