@@ -35,7 +35,7 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Login
                 </a>
-                <a class="dropdown-item" href="{{ route('register') }}">
+                <a class="dropdown-item" href="{{ route('users.create') }}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Registar
                 </a>
