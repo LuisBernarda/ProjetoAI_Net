@@ -20,11 +20,19 @@ Route::get('/', 'PageController@index')->name('home');
     // Secção de Administração
 Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
 
-    //User admin
+    //Seccao users
+
+Route::get('users', 'UserController@index')->name('users.index');
+//Route::get('users/create', 'UserController@create')->name('users.create');
+//Route::get('users', 'UserController@store')->name('users.store');
+//Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+//Route::get('users/{user}', 'UserController@update')->name('users.update');
+
 Route::get('admin/users', 'UserController@admin')->name('admin.users');
 Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('alterarTipo');
 Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('alterarBloqueio');
 Route::put('admin/users/{user}', 'UserController@storeTipo')->name('users.storeTipo');
+Route::put('admin/users/{user}', 'UserController@storeBloqueio')->name('users.storeBloqueio');
 
 //Secção Conta
 

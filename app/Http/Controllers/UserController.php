@@ -113,4 +113,14 @@ class UserController extends Controller
         //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas que pertencem ao utilizador
     }
 
+    public function destroy_foto(User $user)
+    {
+        Storage::delete('public/app/public/fotos/' . $user->foto);
+        $user->foto = null;
+        $user->save();
+        return redirect()->route('users.edit', ['user' => $user])
+            ->with('alert-msg', 'Foto do user "' . $user->name . '" foi removida!')
+            ->with('alert-type', 'success');
+    }
+
 }
