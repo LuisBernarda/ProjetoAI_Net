@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+
 class UserPost extends FormRequest
 {
     /**
@@ -25,18 +26,24 @@ class UserPost extends FormRequest
     public function rules()
     {
         return [
-            'name' =>           'required',
-            'password' =>       'required',
-            'adm'   =>          'required|boolean',
-            'bloqueado' =>      'required|boolean',
+            
+            //'name' =>           'required',
+            //'password' =>       'required',
+            //'adm'   =>          'required|boolean',
+            //'bloqueado' =>      'required|boolean',
             'NIF'   =>          'nullable|integer',
             'telefone' =>       'nullable',
             'foto' =>           'nullable|image|max:8192',
             'email' =>[
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->id),
+                Rule::unique('users', 'email')->ignore($this->user->id),
             ]
         ];
+    }
+
+    public function messages()
+    {
+    
     }
 }

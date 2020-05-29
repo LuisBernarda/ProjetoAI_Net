@@ -23,6 +23,7 @@
 
             </tr>
         </thead>
+        
         <tbody>
             @foreach ($movimentos as $movimento)
                 <tr>
