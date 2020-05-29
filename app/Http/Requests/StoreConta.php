@@ -30,9 +30,11 @@ class StoreConta extends FormRequest
             'descricao' => 'nullable',
             'saldo_atual' => 'numeric',
             'saldo_abertura' => 'required|numeric',
-            'nome' => [Rule::unique('contas')->where(function ($query) {
-                return $query->where('user_id', Auth::user()->id)->where('nome', '<>', $this->nome);
-            }),'required', 'max:20']
+            'nome'=> [Rule::unique('contas')->ignore($this->id)],
+            'required', 'max:20'
         ];
     }
 }
+// 'nome' => [Rule::unique('contas')->where(function ($query) {
+//                 return $query->where('user_id', Auth::user()->id);}
+//->where('nome', '<>', $this->nome)
