@@ -23,15 +23,16 @@
 
             </tr>
         </thead>
+        
         <tbody>
             @foreach ($movimentos as $movimento)
                 <tr>
 
                     <td>{{$movimento->valor}}</td>
                     <td>{{$movimento->saldo_final}}</td>
-                    <td>{{$movimento->categoria->tipo}}</td>
+                    <td>{{$movimento->categoria['tipo']}}</td>
                    
-                    <td>{{$movimento->categoria->nome}}</td>
+                    <td>{{$movimento->categoria['nome']}}</td>
                     <td>{{$movimento->data}}</td>
                     <td><a href="{{route('conta.movimentos.consultar', ['movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
                         <a href="{{route('conta.movimentos.edit', ['conta'=>$conta,'movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
