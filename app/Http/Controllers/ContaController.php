@@ -33,8 +33,13 @@ class ContaController extends Controller
 
     public function consultar(Conta $conta){
 
-        $qry = Movimento::with('conta_id');
-        dd($qry);
+
+        $movimentos = $conta->movimentos()->paginate(10);
+
+        return view('conta.consultar')
+            ->withMovimentos($movimentos)
+            ->withConta($conta);
+        //dd($movimentos);
 
 
 
@@ -81,18 +86,18 @@ class ContaController extends Controller
 
         return redirect()->route('conta.index')
             ->with('alert-msg', 'Conta "' . $conta->nome . '" foi alterado com sucesso!')
-            ->with('alert-type', 'success');;
+            ->with('alert-type', 'success');
 
     }
 
     public function destroy(Conta $conta)
     {
-        $oldName = $conta->name;
+        $oldName = $conta->nome;
 
         try {
             $conta->delete();
             return redirect()->route('conta.index')
-                ->with('alert-msg', 'Conta "' . $conta->name . '" foi apagado com sucesso!')
+                ->with('alert-msg', 'Conta "' . $conta->nome . '" foi apagado com sucesso!')
                 ->with('alert-type', 'success');
         } catch (\Throwable $th) {
             // $th é a exceção lançada pelo sistema - por norma, erro ocorre no servidor BD MySQL

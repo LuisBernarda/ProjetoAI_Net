@@ -1,36 +1,34 @@
 @extends('layout_admin')
-@section('title', 'Consultar Conta' )
+@section('title', 'Consulta de Conta' )
 @section('content')
+
+    <h3>Conta: {{$conta->nome}}</h3>
+    <p>{{$conta->descricao}}</p>
+
      <table class="table">
         <thead>
             <tr>
 
-                <th>Data</th>
-                <th>Movimento</th>
-                <th>Saldo</th>
+                <th>Valor</th>
+                <th>Saldo Final</th>
+                <th>Tipo</th>
 
             </tr>
         </thead>
         <tbody>
-            @foreach ($contas as $conta)
+            @foreach ($movimentos as $movimento)
                 <tr>
 
-                    <td>{{$conta->nome}}</td>
-                    <td>{{$conta->saldo_atual}}</td>
-                    <td><a href="{{route('conta.consultar', ['conta' => $conta])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
-                        <a href="{{route('conta.edit', ['conta' => $conta])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
-
-                        <form action="{{route('conta.destroy', ['conta' => $conta])}}" method="POST">
-                            @csrf
-                            @method("DELETE")
-                            <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
-                        </form>
-                    </td>
+                    <td>{{$movimento->valor}}</td>
+                    <td>{{$movimento->saldo_final}}</td>
+                    <td>{{$movimento->tipo}}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="form-group text-left">
+            <a href="{{route('conta.index')}}" class="btn btn-secondary">Voltar</a>
+    </div>
 
-
-
+    {{ $movimentos->withQueryString()->links() }}
 @endsection
