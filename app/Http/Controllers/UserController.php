@@ -145,6 +145,10 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-    
+    public function counter()
+    {
+        $total_users = User::count();
+        return $total_users;
+    }
 
 }

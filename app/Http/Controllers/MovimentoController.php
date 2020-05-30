@@ -74,4 +74,10 @@ class MovimentoController extends Controller
         return view('conta.movimentos.edit')
              ->withConta($movimento);
     }
+
+    public function counter()
+    {
+        $total_movimentos = Movimento::count();
+        return $total_movimentos;
+    }
 }
