@@ -54,6 +54,9 @@ Route::get('conta//{conta}/create', 'MovimentoController@create')->name('conta.m
 Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
 Route::put('conta/{conta}/{movimento}/edit', 'MovimentoController@update')->name('conta.movimentos.update');
+Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
+
+
 
 Auth::routes();
 

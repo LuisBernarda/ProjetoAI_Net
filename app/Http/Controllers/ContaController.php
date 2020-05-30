@@ -53,7 +53,7 @@ class ContaController extends Controller
     public function create(){
         $newConta = new Conta;
 
-        
+
         return view('conta.create')
             ->withConta($newConta);
     }
@@ -61,7 +61,7 @@ class ContaController extends Controller
     public function store(RequestsStoreConta $request){
         //dd("STORE");
         $validated = $request->validated();
-        
+
         $newConta= new Conta;
         $newConta->user_id=Auth::user()->id;
         $newConta->nome=$validated['nome'];
@@ -110,24 +110,24 @@ class ContaController extends Controller
 
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
                 return redirect()->route('conta.index')
-                    ->with('alert-msg', 'Não foi possível apagar o Aluno "' . $oldName . '", porque este aluno já está em uso!')
+                    ->with('alert-msg', 'Não foi possível apagar a Conta "' . $oldName . '", porque esta conta já está em uso!')
                     ->with('alert-type', 'danger');
             } else {
                 return redirect()->route('conta.index')
-                    ->with('alert-msg', 'Não foi possível apagar o Aluno "' . $oldName . '". Erro: ' . $th->errorInfo[2])
+                    ->with('alert-msg', 'Não foi possível apagar a Conta "' . $oldName . '". Erro: ' . $th->errorInfo[2])
                     ->with('alert-type', 'danger');
             }
         }
     }
 
     public function detalhesMovimento(Movimento $movimento,Conta $conta){
-        
+
         // if ($movimento->imagem_doc->file()) {
         //     $documento=$movimento->imagem_doc;
         // }else{
         //     $documento="";
         // }
-       
+
             //dd($conta);
         return view('conta.movimento_detalhes')
             ->withMovimento($movimento);
