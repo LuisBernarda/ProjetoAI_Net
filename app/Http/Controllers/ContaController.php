@@ -133,5 +133,9 @@ class ContaController extends Controller
             ->withMovimento($movimento);
     }
 
-
+    public function counter()
+    {
+        $total_contas = Conta::count();
+        return $total_contas;
+    }
 }

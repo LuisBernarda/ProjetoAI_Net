@@ -136,4 +136,10 @@ class MovimentoController extends Controller
 
 
     }
+
+    public function counter()
+    {
+        $total_movimentos = Movimento::count();
+        return $total_movimentos;
+    }
 }
