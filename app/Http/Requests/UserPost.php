@@ -26,24 +26,24 @@ class UserPost extends FormRequest
     public function rules()
     {
         return [
-            
-            //'name' =>           'required',
+           
+           // 'name' =>[
+           // 
+           // Rule::required()->ignore($this->user),
+           // ]
             //'password' =>       'required',
             //'adm'   =>          'required|boolean',
-            //'bloqueado' =>      'required|boolean',
+            'bloqueado' =>      'required|boolean',
             'NIF'   =>          'nullable|integer',
             'telefone' =>       'nullable',
             'foto' =>           'nullable|image|max:8192',
-            'email' =>[
-                'required',
-                'email',
-                Rule::unique('users', 'email')->ignore($this->user->id),
-            ]
+            'email' => [
+               'required',
+               'email',
+               Rule::unique('users')->ignore($this->user)],
+            
         ];
     }
 
-    public function messages()
-    {
     
-    }
 }

@@ -42,7 +42,11 @@ class UserController extends Controller
     public function storeTipo(UserPost $request, User $user){
 
         //not functional
-        $user->adm = $request->adm;
+        //problemas com ignores
+        
+        $validated_data = $request->validated();
+        
+        $user->adm = $validated_data['adm'];
         $user->save();
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
@@ -52,10 +56,12 @@ class UserController extends Controller
     public function storeBloqueio(UserPost $request, User $user){
 
         //not functional
+        //problemas com ignores
         
-        $validated_data = $request->only($this->bloqueado);
-        $user->bloqueado = $validated_data;
-        $user->save;
+        $validated_data = $request->validated();
+        
+        $user->bloqueado = $validated_data['bloqueado'];
+        $user->save();
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
@@ -70,28 +76,26 @@ class UserController extends Controller
 
     public function store(UserPost $request){
 
-        $validated_data = $request->validated();
+        //adm e bloqueado injetado (a 0) como extra com hidden na create.blade
 
+        $validated_data = $request->validated();
+        dd($validated_data);
         $newUser = new User;
         $newUser->name = $validated_data['name'];
         $newUser->email = $validated_data['email'];
         $newUser->NIF = $validated_data['NIF'];
         $newUser->telefone = $validated_data['telefone'];
         $newUser->password = Hash::make($validated_data['password']);
-        $newUser->adm = '0';
-        $newUser->bloqueado = '0';
+        $newUser->adm = $validated_data['adm'];
+        $newUser->bloqueado = $validated_data['bloqueado'];
         if ($request->hasFile('foto')) {
             $path = $request->foto->store('storage/app/public/fotos');
             $newUser->foto = basename($path);
         }
         $newUser->save();
-
-        /*
-        //todo alert msg quando rotas tiverem OK
-        return redirect()->route('#')
-            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi criado com sucesso!')
+        return redirect()->route('admin.users')
+            ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
-        */
     }
 
     public function edit(User $user){
@@ -103,7 +107,7 @@ class UserController extends Controller
     public function update(UserPost $request, User $user){
 
         $validated_data = $request->validated();
-
+        
         $user->name = $validated_data['name'];
         $user->email = $validated_data['email'];
         $user->NIF = $validated_data['NIF'];
