@@ -22,27 +22,27 @@
                 <label for="idCategoria">Categoria pretendida: </label>
                 <select name="categoria" id="idCcategoria">
                     @foreach($categorias as $categoria)
-                    
+
                         <option value={{$categoria->id}} {{old('categoria')==$categoria->id?'selected':''}}>{{$categoria->nome}} tipo: {{$categoria->tipo}}</option>
-                        
+
                     @endforeach
                 </select>
-             
+
                 @error('categoria')
                     <div class="error">{{ $message }}</div>
                 @enderror
-                
+
 </div>
 
 <div class="form-right-area">
             <div id="origem-area">
                 <div class="title-items">Tipo de Movimento:</div>
                 <div class="item-form">
-                    <input type="radio" name="tipo" id="idTipoR" value="R" {{old('tipo')=='R'?'checked':''}}>
+                    <input type="radio" name="tipo" id="idTipoR" value="R" {{old('tipo',$movimento->tipo)=='R'?'checked':''}}>
                     <label for="idTipoR">Receita</label>
                 </div>
                 <div class="item-form">
-                    <input type="radio" name="tipo" id="idTipoD" value="D" {{old('tipo')=='D'?'checked':''}}>
+                    <input type="radio" name="tipo" id="idTipoD" value="D" {{old('tipo',$movimento->tipo)=='D'?'checked':''}}>
                     <label for="idTipoD">Despesa</label>
                 </div>
             </div>

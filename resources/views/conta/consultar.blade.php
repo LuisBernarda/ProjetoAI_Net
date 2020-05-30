@@ -6,7 +6,7 @@
     <h4>Saldo Inicial: <b>{{$conta->saldo_abertura}}</b> | Saldo Atual: <b>{{$conta->saldo_atual}}</b></h4>
     <p>{{$conta->descricao}}</p>
     <div class="form-group text-left">
-            
+
             <a href="{{route('conta.movimentos.create',['conta'=>$conta])}}" class="btn btn-secondary">Novo Movimento</a>
     </div>
      <table class="table">
@@ -19,11 +19,11 @@
                 <th>Categoria</th>
                 <th>Data</th>
                 <th>Acções</th>
-                
+
 
             </tr>
         </thead>
-        
+
         <tbody>
             @foreach ($movimentos as $movimento)
                 <tr>
@@ -35,6 +35,11 @@
                     <td>{{$movimento->data}}</td>
                     <td><a href="{{route('conta.movimentos.consultar', ['movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
                         <a href="{{route('conta.movimentos.edit', ['conta'=>$conta,'movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
+                         <a><form action="{{route('conta.movimentos.destroy', ['conta' => $conta, 'movimento' => $movimento])}}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
+                        </form></a>
                     </td>
                 </tr>
             @endforeach

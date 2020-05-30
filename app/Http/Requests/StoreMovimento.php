@@ -23,6 +23,10 @@ class StoreMovimento extends FormRequest
      */
     public function rules()
     {
+        // if (old('valor') > 'valor') {
+        //     dd("Valor é menor");
+        // }
+
         return [
             'data'=>'date|required',
             'valor'=>'numeric|required',
@@ -30,5 +34,6 @@ class StoreMovimento extends FormRequest
             'descricao' => 'nullable',
             'categoria' => 'nullable|numeric'
         ];
+
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Movimento extends Model
 {
     //
+    protected $softDeletes = true;
 
     public $timestamps = false;
 
