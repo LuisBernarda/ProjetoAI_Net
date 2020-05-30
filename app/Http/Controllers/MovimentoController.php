@@ -44,8 +44,14 @@ class MovimentoController extends Controller
 
     public function store(RequestsStoreMovimento $request,Conta $conta){
          $validated = $request->validated();
-         //dd($validated['categoria']);
+
+        //dd(CategoriaCache::get('key', 'default');
+        //  if (!$validated['tipo']===Categoria::) {
+        //      dd(Movimento::where('tipo'));
+        //     return redirect()->withErrors(['msg', 'The Message']);
+        //  }
          $newMovimento=new Movimento;
+         //dd($newMovimento->id);
          $newMovimento->conta_id=$conta->id;
          $newMovimento->data=$validated['data'];
          $newMovimento->valor=$validated['valor'];
@@ -85,41 +91,57 @@ class MovimentoController extends Controller
         //dd($movimento->valor+ $validated['valor']);
         if($validated['tipo']===$movimento->tipo){
 
-            if ($validated['tipo'] === "R" && $movimento->valor > $validated['valor']) {
-                $movimento->valor = $movimento->valor-$validated['valor'];
-                $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+            if ($validated['tipo'] === "R") {
 
-            }elseif ($validated['tipo'] === "R" && $movimento->valor < $validated['valor']){
-                $movimento->valor = $validated['valor']-$movimento->valor;
-                $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                if ($movimento->valor > $validated['valor']) {
+                    $movimento->valor = $movimento->valor - $validated['valor'];
 
-            }elseif ($validated['tipo'] === "D" && $movimento->valor < $validated['valor']){
-                $movimento->valor = $validated['valor'] - $movimento->valor;
-                $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                } elseif ($movimento->valor < $validated['valor']) {
+                    $movimento->valor = $validated['valor'] - $movimento->valor;
 
-            } elseif ($validated['tipo'] === "D" && $movimento->valor > $validated['valor']) {
-                $movimento->valor = $movimento->valor-$validated['valor'];
-                $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
-            }
+                } else {
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                }
+            } elseif ($validated['tipo'] === "D") {
+
+                if ($movimento->valor < $validated['valor']) {
+                    $movimento->valor = $validated['valor'] - $movimento->valor;
+
+                } elseif ($movimento->valor > $validated['valor']) {
+                    $movimento->valor = $movimento->valor - $validated['valor'];
+
+                } else {
+                    $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                }
+
         }else {
 
-            if ($validated['tipo'] === "R" && $movimento->valor > $validated['valor']) {
-                $movimento->valor = $movimento->valor - $validated['valor'];
-                $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+            if ($validated['tipo'] === "R") {
 
-            } elseif ($validated['tipo'] === "R" && $movimento->valor < $validated['valor']) {
-                $movimento->valor = $validated['valor'] - $movimento->valor;
-                $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                if ($movimento->valor > $validated['valor']) {
+                    $movimento->valor = $movimento->valor - $validated['valor'];
 
-            } elseif ($validated['tipo'] === "D" && $movimento->valor < $validated['valor']) {
-                $movimento->valor = $validated['valor'] - $movimento->valor;
-                $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                }elseif ($movimento->valor < $validated['valor']) {
+                    $movimento->valor = $validated['valor'] - $movimento->valor;
 
-            } elseif ($validated['tipo'] === "D" && $movimento->valor > $validated['valor']) {
-                $movimento->valor = $movimento->valor - $validated['valor'];
-                $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                }else {
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                }
+
+            } elseif ($validated['tipo'] === "D") {
+
+                if ($movimento->valor < $validated['valor']) {
+                    $movimento->valor = $validated['valor'] - $movimento->valor;
+
+                }elseif($movimento->valor > $validated['valor']) {
+                    $movimento->valor = $movimento->valor - $validated['valor'];
+
+                }else {
+                    $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                }
             }
         }
+    }
 
         $conta->saldo_atual = $movimento->saldo_final;
 
@@ -136,6 +158,36 @@ class MovimentoController extends Controller
 
 
     }
+
+    public function destroy(Conta $conta, Movimento $movimento)
+    {
+        $oldMovimento = $movimento->id;
+        //dd($movimento);
+
+        try {
+            $movimento->delete();
+            return redirect()->route('conta.consultar', [$conta])
+            ->with('alert-msg', 'Movimento da categoria "' . $movimento->categoria->nome . '" com o valor "'. $movimento->valor .'" foi apagado com sucesso!')
+            ->with('alert-type', 'success');
+        } catch (\Throwable $th) {
+            // $th é a exceção lançada pelo sistema - por norma, erro ocorre no servidor BD MySQL
+            // Descomentar a próxima linha para verificar qual a informação que a exceção tem
+            //dd($th, $th->errorInfo);
+
+            if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                return redirect()->route('conta.consultar', [$conta])
+                ->with('alert-msg', 'Não foi possível apagar este Movimento "' . $oldMovimento . '", porque este movimento está em uso!')
+                ->with('alert-type', 'danger');
+            } else {
+                return redirect()->route('conta.consultar', [$conta])
+                    ->with('alert-msg', 'Não foi possível apagar este Movimento "' . $oldMovimento . '". Erro: ' . $th->errorInfo[2])
+                    ->with('alert-type', 'danger');
+            }
+        }
+
+    }
+
+
 
     public function counter()
     {
