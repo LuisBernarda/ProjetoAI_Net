@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Conta extends Model
 {
     public $timestamps = false;
-    use SoftDeletes;
+    protected $softDeletes;
     //
     public function user()
     {
@@ -21,7 +21,7 @@ class Conta extends Model
         return $this->hasMany('App\Movimento');
     }
 
-  
+
 
 
 }

@@ -26,7 +26,7 @@ class StoreConta extends FormRequest
      */
     public function rules()
     {
-        
+
         return [
             'descricao' => 'nullable',
             'saldo_atual' => 'numeric',
@@ -35,7 +35,7 @@ class StoreConta extends FormRequest
                 'required',
                 'max:20',
                 Rule::unique('contas')->ignore($this->conta)],
-            
+
         ];
         //dd("ola");
     }
