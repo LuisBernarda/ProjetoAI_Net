@@ -16,10 +16,13 @@ class UserPolicy
     }
 
     //impedir que um admin possa alterar os seus proprios tipos (adm,bloqueado) -- not working
-    public function view($listId,User $currentUser)
+    public function viewOthers(User $user,User $user2)
     {
         //dd($listId);
-       return ($currentUser->adm == "Admin" && !($currentUser->id == $listId));
+        $id1 = $user->id;
+        $id2 = $user2->id;
+       return ($user->adm == "Admin") && ($id1 != $id2);
+
     }
 
     //assegura que so o proprio utilizador possa alterar os seus dados, mais segurança -- n testado
