@@ -9,28 +9,28 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-
    //possibilitar visualizaçao da parte de administracao a admins -- working
     public function viewAdm(User $user)
     {
-        return $user->adm;
+        return $user->adm == "Admin";
     }
 
-    //impedir que um admin possa alterar os seus proprios tipos (adm,bloqueado) ... se eu estiver a pensar bem --not working
-    public function view(User $user, $id)
+    //impedir que um admin possa alterar os seus proprios tipos (adm,bloqueado) -- not working
+    public function view($listId,User $currentUser)
     {
-        return true;
+        //dd($listId);
+       return ($currentUser->adm == "Admin" && !($currentUser->id == $listId));
     }
 
-    //assegura que so o proprio utilizador possa alterar os seus dados, mais segurança
-    public function update(User $user1, $id)
+    //assegura que so o proprio utilizador possa alterar os seus dados, mais segurança -- n testado
+    public function update(User $user, $id)
     {
-        return ($user1->id == $id);
+        return ($user->id == $id);
     }
 
-    //assegura que so o proprio utilizador possa apagar os seus dados, mais segurança
+    //assegura que so o proprio utilizador possa apagar os seus dados, mais segurança -- n testado ainda
     public function delete(User $user1, $id)
     {
-        return ($user1->id == $id);    
+        return ($user->id == $id);    
     }
 }
