@@ -10,7 +10,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $primarykey = 'id';
     protected $keytype = 'integer';

@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UserPost;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -53,6 +55,11 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'adm'   =>  ['required', 'boolean'],
+            'bloqueado'   =>  ['required', 'boolean'],
+            'NIF'   =>  ['nullable', 'integer'],
+            'telefone'   =>  ['nullable'],
+            'foto'      => ['nullable', 'image', 'max:8192'],
         ]);
     }
 
@@ -64,16 +71,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        $imageName = time() . '.' . $data['foto']->getClientOriginalExtension();
+
+        $data['foto']->move(
+        base_path() . '/public/storage/fotos/', $imageName
+        );
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'adm'   => $data['adm'],
+            'bloqueado' => $data['bloqueado'],
+            'NIF' => $data['NIF'],
+            'telefone' => $data['telefone'],
+            'foto'  =>  $imageName,
         ]);
     }
 }
 
 
 /*
+logica portada do UserController para ver se os sistema automatico de mails começa a funcionar.
+
 $validated_data = $request->validated();
         //dd($validated_data);
         $newUser = new User;
@@ -93,4 +114,23 @@ $validated_data = $request->validated();
             ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
 
+
+            public function rules()
+    {
+        return [
+           
+            'name'   =>         'required',
+            'password' =>       'required',
+            'adm'   =>          'required|boolean',
+            'bloqueado' =>      'required|boolean',
+            'NIF'   =>          'nullable|integer',
+            'telefone' =>       'nullable',
+            'foto' =>           'nullable|image|max:8192',
+            'email' => [
+               'required',
+               'email',
+                Rule::unique('users')->ignore($this->user)],
+            
+        ];
+    }
 */
