@@ -1,6 +1,11 @@
 @extends('layout_admin')
 @section('title','Alterar User' )
 @section('content')
+
+@foreach($errors->all() as $error)
+Ola : {{ $error }}
+@endforeach
+
     <form method="POST" action="{{route('users.update', ['user' => $user]) }}" class="form-group" enctype="multipart/form-data">
         @csrf
         @method('PUT')
