@@ -28,7 +28,7 @@
                             @method("DELETE")
                             <input type="submit" class="btn btn-danger btn-sm" value="Apagar">
                         </form>
-                        
+
                     </td>
                 </tr>
             @endforeach

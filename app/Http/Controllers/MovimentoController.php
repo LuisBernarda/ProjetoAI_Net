@@ -7,16 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\StoreMovimento;
+
 use App\Http\Requests\StoreMovimento as RequestsStoreMovimento;
 use App\Movimento;
 use App\Categoria;
 use App\Conta;
-use Illuminate\Http\UploadedFile;
+
+
+use Illuminate\Support\Facades\Storage;
+
+
 
 class MovimentoController extends Controller
 {
     //
-     public function consultar(Movimento $movimento,Conta $conta){
+     public function consultar(Conta $conta, Movimento $movimento){
 
         // if ($movimento->imagem_doc->file()) {
         //     $documento=$movimento->imagem_doc;
@@ -26,7 +31,8 @@ class MovimentoController extends Controller
 
 
         return view('conta.movimentos.movimento_detalhes')
-            ->withMovimento($movimento);
+            ->withMovimento($movimento)
+            ->withConta($conta);
 
             // ->withDocumento($documento);
     }
@@ -45,13 +51,14 @@ class MovimentoController extends Controller
     public function store(RequestsStoreMovimento $request,Conta $conta){
          $validated = $request->validated();
 
-        //dd(CategoriaCache::get('key', 'default');
-        //  if (!$validated['tipo']===Categoria::) {
-        //      dd(Movimento::where('tipo'));
-        //     return redirect()->withErrors(['msg', 'The Message']);
-        //  }
+        if (strcmp($validated['tipo'],Categoria::where('id', $validated['categoria'])->get()->first()->tipo)!=0) {
+
+            return redirect()->back()
+                ->with('alert-msg', 'Não foi possível inserir o tipo de despesa, invalido!')
+                ->with('alert-type', 'danger');
+        }
          $newMovimento=new Movimento;
-         //dd($newMovimento->id);
+
          $newMovimento->conta_id=$conta->id;
          $newMovimento->data=$validated['data'];
          $newMovimento->valor=$validated['valor'];
@@ -62,14 +69,24 @@ class MovimentoController extends Controller
              $newMovimento->saldo_final=$conta->saldo_atual+$newMovimento->valor;
          }
          $conta->saldo_atual=$newMovimento->saldo_final;
+
          $newMovimento->tipo=$validated['tipo'];
          $newMovimento->categoria_id=$validated['categoria'];
          $newMovimento->descricao=$validated['descricao'];
 
-         $newMovimento->save();
+         if ($newMovimento->save()) {
+
+            $file = $request->file('fileToUpload');
+            Storage::disk('local')->put('movimentos/'.$newMovimento->id.'.'.$file->extension(), $file->get());
+            $newMovimento->imagem_doc= $newMovimento->id . '.' . $file->extension();
+            $newMovimento->save();
+
+         }
+
+
          $conta->save();
 
-          //return redirect()->route('conta.movimentos.movimento_detalhes');
+
         return redirect()->route('conta.consultar', [$conta]);
 
 
@@ -87,8 +104,16 @@ class MovimentoController extends Controller
 
     public function update(RequestsStoreMovimento $request, Conta $conta, Movimento $movimento)
     {
+
         $validated = $request->validated();
-        //dd($movimento->valor+ $validated['valor']);
+
+        if (strcmp($validated['tipo'], Categoria::where('id', $validated['categoria'])->get()->first()->tipo) != 0) {
+
+            return redirect()->back()
+            ->with('alert-msg', 'Não foi possível inserir o tipo de despesa, invalido!')
+            ->with('alert-type', 'danger');
+        }
+
         if($validated['tipo']===$movimento->tipo){
 
             if ($validated['tipo'] === "R") {
@@ -150,7 +175,13 @@ class MovimentoController extends Controller
         $movimento->categoria_id = $validated['categoria'];
         $movimento->descricao = $validated['descricao'];
 
-        $movimento->save();
+        if ($movimento->save()) {
+
+            $file = $request->file('fileToUpload');
+            Storage::disk('local')->put('movimentos/' . $movimento->id . '.' . $file->extension(), $file->get());
+            $movimento->imagem_doc = $movimento->id . '.' . $file->extension();
+            $movimento->save();
+        }
         $conta->save();
 
         //return redirect()->route('conta.movimentos.movimento_detalhes');
@@ -185,6 +216,25 @@ class MovimentoController extends Controller
             }
         }
 
+    }
+
+    public function upload($conta, Movimento $movimento)
+    {
+        //dd("estou aqui");
+        $path = storage_path('app/movimentos/'. $movimento->imagem_doc);
+        //dd();
+        //
+        // $path= Storage::exists('movimentos/' . $movimento->imagem_doc);
+        // $file=Storage::get('movimentos/' . $movimento->imagem_doc);
+        return response()->file($path);
+
+        // $file = File::get($path);
+        // $type = File::mimeType($path);
+
+        // $response = Response::make($file, 200);
+        // $response->header("Content-Type", $type);
+
+        // return $response;
     }
 
 

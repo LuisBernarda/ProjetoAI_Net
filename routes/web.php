@@ -41,21 +41,22 @@ Route::put('admin/users/{user}', 'UserController@storeBloqueio')->name('users.st
 
 Route::get('conta', 'ContaController@index')->name('conta.index');
 Route::get('conta/create', 'ContaController@create')->name('conta.create');
+Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.consultar');
+Route::get('conta/{conta}/edit', 'ContaController@edit')->name('conta.edit');
 Route::post('conta', 'ContaController@store')->name('conta.store');
-Route::get('conta/{conta}/edit', 'ContaController@edit') ->name('conta.edit');
 Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
 Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy');
-Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.consultar');
+
 
 
 //Movimentos
+Route::get('conta/{conta}/{movimento}/upload', 'MovimentoController@upload')->name('conta.movimentos.upload');
 Route::get('conta/{movimento}/detalhes', 'MovimentoController@consultar')->name('conta.movimentos.consultar');
 Route::get('conta//{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
-Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
 Route::put('conta/{conta}/{movimento}/edit', 'MovimentoController@update')->name('conta.movimentos.update');
 Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
-
+Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 
 
 Auth::routes();

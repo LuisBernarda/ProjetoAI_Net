@@ -33,20 +33,25 @@ class ContaController extends Controller
 
     }
 
-    public function consultar(Conta $conta){
+    public function consultar(Conta $conta, Request $request){
 
 
-        //$movimentos = $conta->movimentos()->orderBy('data')->paginate(10);
-        $movimentos = $conta->movimentos()->orderBy('data','DESC')->paginate(10);
+        $movimentos = $conta->movimentos();
+        if ($request['categoria'] != null && strcmp($request['categoria'],"null" )!=0) {
+            $movimentos = $movimentos->where('categoria_id', $request['categoria']);
+        }
+
+        if ($request['tipo'] != null) {
+            //$movimentos = $conta->movimentos()->where()->orderBy('data', 'DESC',)->paginate(10);
+            $movimentos = $movimentos->where('tipo', $request['tipo']);
+        }
+        $movimentos = $movimentos->orderBy('data', 'DESC')->paginate(10);
+
+        $listaCategorias = Categoria::all();
         return view('conta.consultar')
             ->withMovimentos($movimentos)
-            ->withConta($conta);
-            // ->withCategoria($categoria);
-
-        //dd($categoria);
-
-
-
+            ->withConta($conta)
+            ->withCategorias($listaCategorias);
     }
 
 
