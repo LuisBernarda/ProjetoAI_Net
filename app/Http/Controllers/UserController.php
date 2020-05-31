@@ -7,7 +7,13 @@ use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\UserPost;
+//ja n esta a ser utilizado, funcionalidades passaram para o register controller
+//use App\Http\Requests\UserPost;
+use App\Http\Requests\UserPost2;
+use App\Http\Requests\UserPost3;
+use App\Http\Requests\UserPost4;
+use App\Http\Requests\UserPost5;
+
 
 
 class UserController extends Controller
@@ -41,24 +47,21 @@ class UserController extends Controller
             ->withUser($user);
     }
 
-    public function guardarTipo(UserPost $request, User $user){
+    public function guardarTipo(UserPost3 $request, User $user){
 
         //not functional
         //problemas com ignores
         
         $validated_data = $request->validated();
-       //$validated_data = $request->validate('adm');
-       //dd($validated_data);
-
-       $user->adm = $validated_data['adm'];
-  
-       $user->save();
-       return redirect()->route('admin.users')
-           ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
-           ->with('alert-type', 'success');
+        
+        $user->adm = $validated_data['adm'];
+        $user->save();
+        return redirect()->route('admin.users')
+            ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');
     }
 
-    public function guardarBloqueio(UserPost $request, User $user){
+    public function guardarBloqueio(UserPost4 $request, User $user){
 
         //not functional
         //problemas com ignores
@@ -75,16 +78,20 @@ class UserController extends Controller
     public function create(){
 
         $newUser = new User;
-        return view('users.create')
+        return view('auth.register')
             ->withUser($newUser);
     }
+
+    /*
+    funcao movida para o App\Http\Controllers\RegisterController
+    a fim de funcionar com os emails automaticos!!!
 
     public function store(UserPost $request){
 
         //adm e bloqueado injetado (a 0) como extra com hidden na create.blade
 
         $validated_data = $request->validated();
-        //dd($validated_data);
+        dd($validated_data);
         $newUser = new User;
         $newUser->name = $validated_data['name'];
         $newUser->email = $validated_data['email'];
@@ -102,14 +109,14 @@ class UserController extends Controller
             ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
     }
-
+    */
     public function edit(User $user){
 
         return view('users.edit')
             ->withUser($user);
     }
 
-    public function update(UserPost $request, User $user){
+    public function update(UserPost2 $request, User $user){
 
         $validated_data = $request->validated();
         
@@ -124,9 +131,13 @@ class UserController extends Controller
         }
 
         $user->save();
-        return redirect()->route('apresentacao')
-            ->with('alert-msg', 'User "' . $user->name . '" foi atualizado com sucesso!')
+
+        /*
+        //todo alert msg quando rotas tiverem OK
+        return redirect()->route('#')
+            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi atualizado com sucesso!')
             ->with('alert-type', 'success');
+        */
     }
 
     public function mudarPass(User $user)
@@ -156,7 +167,7 @@ class UserController extends Controller
         return $total_users;
     }
 
-    public function storePassword(UserPost $request, User $user)
+    public function storePassword(UserPost5 $request, User $user)
     {
         $validated_data = $request->validated();
 

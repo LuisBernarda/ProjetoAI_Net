@@ -13,7 +13,7 @@
 
 <div class="form-group">
     <label for="inputValor">Valor do Movimento</label>
-    <input type="number" class="form-control" name="valor" id="inputValor"  value="{{old('valor', $movimento->valor)}}">
+    <input type="number" step="0.01" class="form-control" name="valor" id="inputValor"  value="{{old('valor', $movimento->valor)}}">
 
     @error('valor')
         <div class="small text-danger">{{$message}}</div>

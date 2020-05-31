@@ -19,8 +19,7 @@ class UserPolicy
     public function view($listId,User $currentUser)
     {
         //dd($listId);
-        return $currentUser->adm != 0 && !($currentUser->id == $listId);
-        //return true;
+       return ($currentUser->adm == "Admin" && !($currentUser->id == $listId));
     }
 
     //assegura que so o proprio utilizador possa alterar os seus dados, mais segurança -- n testado
