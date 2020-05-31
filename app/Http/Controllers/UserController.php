@@ -141,7 +141,7 @@ class UserController extends Controller
 
     public function destroy_foto(User $user)
     {
-        Storage::delete('public/app/public/fotos/' . $user->foto);
+        Storage::delete('storage/fotos/' . $user->foto);
         $user->foto = null;
         $user->save();
         return redirect()->route('users.edit', ['user' => $user])

@@ -62,11 +62,18 @@
                     <a href={{ route('login') }}>Contas</a>
                 </li>
                 @endauth
-                
+
+                @auth
                 <li class="">
                     <i class="fas fa-users"></i>
-                    <a href="">Utilizadores</a>
+                    <a href="{{route('users.index')}}">Utilizadores</a>
                 </li>
+                @else
+                <li class="">
+                    <i class="far fa-file"></i>
+                    <a href={{ route('login') }}>Utilizadores</a>
+                </li>
+                @endauth
                 @auth
                 <li class="">
                     <i class="far fa-file"></i>

@@ -171,6 +171,8 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        //Tentativa de correcao de problema de rotas, descomentei a linha abaixo -- LuisBernarda
+        //n trabalhou voltei a comentar.
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,

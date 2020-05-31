@@ -51,7 +51,14 @@
       </li>
       @else
       @endauth
-      
+      @auth
+      <li class="nav-item {{Route::currentRouteName()=='users.index'? 'active': ''}}">
+      <a class="nav-link" href="{{route('users.index')}}">
+        <i class="fas fa-fw fa-address-book"></i>
+        <span>Utilizadores</span></a>
+      </li>
+      @else
+      @endauth
 
       <!-- Divider -->
       <hr class="sidebar-divider">
