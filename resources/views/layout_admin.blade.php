@@ -16,6 +16,11 @@
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
 
+  {{-- ChartScript --}}
+  @if($movsChart)
+  {!! $movsChart->script() !!}
+  @endif
+
 </head>
 
 <body id="page-top">
@@ -152,5 +157,13 @@
 
 
 </body>
+
+@section('content')
+<h1>Movs Graphs</h1>
+
+<div style="width: 50%">
+    {!! $movsChart->container() !!}
+</div>
+@endsection
 
 </html>

@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
-use App\Http\Movimento;
+use App\Movimento;
+use App\Charts\MovChart;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $chart_options = [
-            'chart_title' => 'Transactions by dates',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Http\Movimento',
-            'group_by_field' => 'data',
-            'group_by_period' => 'day',
-            'aggregate_function' => 'sum',
-            'aggregate_field' => 'valor',
-            'chart_type' => 'line',
-        ];
-
-    $chart = new LaravelChart($chart_options);
         
-        return view('dashboard.index', compact('chart'));
+
+        $movsChart = new MovChart;
+        $movsChart->labels(['Jan', 'Feb', 'Mar']);
+        $movsChart->dataset('Users by trimester', 'line', [10, 25, 13]);
+
+        return view('dashboard.index', compact('movsChart'));
     }
 }
