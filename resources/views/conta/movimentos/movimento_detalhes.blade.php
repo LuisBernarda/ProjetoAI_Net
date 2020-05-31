@@ -8,9 +8,13 @@
     Nome: {{$movimento->categoria->nome}}<br>
     Data do Movimento: {{$movimento->data}}</p>
 
+    <a href="{{route('conta.movimentos.upload',['conta'=>$conta,'movimento',$movimento])}}" class="btn btn-secondary">Mostrar Documento</a>
+
+
+
     <div class="form-group text-left">
-          
+
          <a href="{{url()->previous()}}" class="btn btn-secondary">Voltar</a>
-            
+
     </div
 @endsection

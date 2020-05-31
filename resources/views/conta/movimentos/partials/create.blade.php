@@ -1,3 +1,6 @@
+
+{{-- {{$errors}}
+{{ $message ?? '' }} --}}
 <div class="form-group">
     <label for="inputData">Data</label>
     <input type="date" class="form-control" name="data" id="inputData"  value="{{old('data', $movimento->data)}}">
@@ -12,7 +15,7 @@
     <label for="inputValor">Valor do Movimento</label>
     <input type="number" class="form-control" name="valor" id="inputValor"  value="{{old('valor', $movimento->valor)}}">
 
-    @error('data')
+    @error('valor')
         <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
@@ -29,7 +32,7 @@
                 </select>
 
                 @error('categoria')
-                    <div class="error">{{ $message }}</div>
+                    <div class="small text-danger">{{ $message }}</div>
                 @enderror
 
 </div>
@@ -46,10 +49,11 @@
                     <label for="idTipoD">Despesa</label>
                 </div>
             </div>
-</div>
-                @error('tipo')
-                    <div class="error">{{ $message }}</div>
+            @error('tipo')
+                    <div class="small text-danger">{{ $message }}</div>
                 @enderror
+</div>
+
 
 <div class="form-group">
     <label for="inputDescricao">Descrição do Movimento</label>
@@ -60,3 +64,5 @@
         <div class="small text-danger">{{$message}}</div>
     @enderror
 </div>
+
+<input type="file" name="fileToUpload" id="fileToUpload" accept="image/x-png,image/gif,image/jpeg"/>
