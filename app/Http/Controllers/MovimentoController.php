@@ -34,7 +34,7 @@ class MovimentoController extends Controller
 
     public function store(RequestsStoreMovimento $request,Conta $conta){
 
-         $validated = $request->validated();
+        $validated = $request->validated();
 
         if (strcmp($validated['tipo'],Categoria::where('id', $validated['categoria'])->get()->first()->tipo)!=0) {
 
@@ -63,19 +63,22 @@ class MovimentoController extends Controller
         $newMovimento->descricao=$validated['descricao'];
 
         if ($newMovimento->save()) {
-
-        $file = $request->file('fileToUpload');
-        if ($file != null) {
-                Storage::disk('local')->put('movimentos/' . $newMovimento->id . '.' . $file->extension(), $file->get());
-                $newMovimento->imagem_doc = $newMovimento->id . '.' . $file->extension();
-        }
-
-        $newMovimento->save();
-
+            $this->saveFile($request, $newMovimento);
         }
 
         $conta->save();
         return redirect()->route('conta.consultar', [$conta]);
+    }
+
+    public function saveFile(RequestsStoreMovimento $request, Movimento $movimento){
+        $file = $request->file('fileToUpload');
+        if ($file != null) {
+            Storage::disk('local')->put('movimentos/' . $movimento->id . '.' . $file->extension(), $file->get());
+            $movimento->imagem_doc = $movimento->id . '.' . $file->extension();
+            $movimento->save();
+        }
+
+
     }
 
     public function edit(Conta $conta,Movimento $movimento)
@@ -112,14 +115,8 @@ class MovimentoController extends Controller
 
         if ($movimento->save()) {
 
-            $file = $request->file('fileToUpload');
-            //dd($file);
-            if ($file != null) {
-                Storage::disk('local')->put('movimentos/' . $movimento->id . '.' . $file->extension(), $file->get());
-                $movimento->imagem_doc = $movimento->id . '.' . $file->extension();
-            }
+            $this->saveFile($request, $movimento);
 
-            $movimento->save();
         }
 
         $conta->save();
@@ -323,6 +320,10 @@ class MovimentoController extends Controller
         // $response->header("Content-Type", $type);
 
         // return $response;
+    }
+
+    public function deleteFile(){
+        dd("ESTOU AQUI");
     }
 
 

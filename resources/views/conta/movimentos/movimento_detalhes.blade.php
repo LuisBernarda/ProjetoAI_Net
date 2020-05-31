@@ -13,11 +13,12 @@
 
 
     <div class="form-group text-left">
-        <a href="{{route('conta.movimentos.upload',['conta'=>$conta,'movimento'=>$movimento])}}" class="btn btn-secondary">Mostrar Documento</a>
+        <a href="{{route('conta.movimentos.upload',['conta'=>$conta,'movimento'=>$movimento])}}" class="btn btn-primary btn-sm">Mostrar Documento</a>
     </div>
 
-
-
+    <div class="form-group text-left">
+        <a href="" class="btn btn-danger btn-sm">Apagar Ficheiro</a>
+    </div>
 
     <div class="form-group text-left">
 
