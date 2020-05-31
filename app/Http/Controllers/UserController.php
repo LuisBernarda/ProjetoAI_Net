@@ -53,15 +53,12 @@ class UserController extends Controller
         //problemas com ignores
         
         $validated_data = $request->validated();
-       //$validated_data = $request->validate('adm');
-       //dd($validated_data);
-
-       $user->adm = $validated_data['adm'];
-  
-       $user->save();
-       return redirect()->route('admin.users')
-           ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
-           ->with('alert-type', 'success');
+        
+        $user->adm = $validated_data['adm'];
+        $user->save();
+        return redirect()->route('admin.users')
+            ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
+            ->with('alert-type', 'success');
     }
 
     public function guardarBloqueio(UserPost4 $request, User $user){
@@ -94,7 +91,7 @@ class UserController extends Controller
         //adm e bloqueado injetado (a 0) como extra com hidden na create.blade
 
         $validated_data = $request->validated();
-        //dd($validated_data);
+        dd($validated_data);
         $newUser = new User;
         $newUser->name = $validated_data['name'];
         $newUser->email = $validated_data['email'];
@@ -134,9 +131,13 @@ class UserController extends Controller
         }
 
         $user->save();
-        return redirect()->route('apresentacao')
-            ->with('alert-msg', 'User "' . $user->name . '" foi atualizado com sucesso!')
+
+        /*
+        //todo alert msg quando rotas tiverem OK
+        return redirect()->route('#')
+            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi atualizado com sucesso!')
             ->with('alert-type', 'success');
+        */
     }
 
     public function mudarPass(User $user)
