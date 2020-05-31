@@ -56,13 +56,36 @@
       </li>
       @else
       @endauth
-      
-
+      @auth
+      <li class="nav-item {{Route::currentRouteName()=='users.index'? 'active': ''}}">
+      <a class="nav-link" href="{{route('users.index')}}">
+        <i class="fas fa-fw fa-address-book"></i>
+        <span>Utilizadores</span></a>
+      </li>
+      @else
+      @endauth
+      @can('viewAdm', App\User::class)
+      <li class="nav-item {{Route::currentRouteName()=='admin.users'? 'active': ''}}">
+      <a class="nav-link" href="{{route('admin.users')}}">
+        <i class="fas fa-fw fa-address-book"></i>
+        <span>Admnistração</span></a>
+      </li>
+      @endcan
       <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Nav Item -->
+       <li class="nav-item">
+            <a class="nav-link" href="{{action('PageController@index')}}">
+              <i class="fas fa-fw fa-home"></i>
+              <span>Parte Publica</span></a>
+       </li>
+
+       <!-- Divider -->
+       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

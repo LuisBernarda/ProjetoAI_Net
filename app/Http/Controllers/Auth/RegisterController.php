@@ -71,3 +71,26 @@ class RegisterController extends Controller
         ]);
     }
 }
+
+
+/*
+$validated_data = $request->validated();
+        //dd($validated_data);
+        $newUser = new User;
+        $newUser->name = $validated_data['name'];
+        $newUser->email = $validated_data['email'];
+        $newUser->NIF = $validated_data['NIF'];
+        $newUser->telefone = $validated_data['telefone'];
+        $newUser->password = Hash::make($validated_data['password']);
+        $newUser->adm = $validated_data['adm'];
+        $newUser->bloqueado = $validated_data['bloqueado'];
+        if ($request->hasFile('foto')) {
+            $path = $request->foto->store('storage/app/public/fotos');
+            $newUser->foto = basename($path);
+        }
+        $newUser->save();
+        return redirect()->route('apresentacao')
+            ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
+            ->with('alert-type', 'success');
+
+*/

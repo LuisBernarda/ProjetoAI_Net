@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserPost;
 
 
@@ -24,7 +25,8 @@ class UserController extends Controller
         $qry = User::query();
         $users = $qry->paginate(15);
         //dd($users);
-        return view('users.admin')->withUsers($users);
+        return view('users.admin')
+            ->withUsers($users);
     }
 
     public function alterarTipo(User $user){
@@ -39,23 +41,32 @@ class UserController extends Controller
             ->withUser($user);
     }
 
-    public function storeTipo(UserPost $request, User $user){
+    public function guardarTipo(UserPost $request, User $user){
 
         //not functional
-        $user->adm = $request->adm;
-        $user->save();
-        return redirect()->route('admin.users')
-            ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
-            ->with('alert-type', 'success');
+        //problemas com ignores
+        
+        $validated_data = $request->validated();
+       //$validated_data = $request->validate('adm');
+       //dd($validated_data);
+
+       $user->adm = $validated_data['adm'];
+  
+       $user->save();
+       return redirect()->route('admin.users')
+           ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
+           ->with('alert-type', 'success');
     }
 
-    public function storeBloqueio(UserPost $request, User $user){
+    public function guardarBloqueio(UserPost $request, User $user){
 
         //not functional
+        //problemas com ignores
         
-        $validated_data = $request->only($this->bloqueado);
-        $user->bloqueado = $validated_data;
-        $user->save;
+        $validated_data = $request->validated();
+        
+        $user->bloqueado = $validated_data['bloqueado'];
+        $user->save();
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
@@ -70,28 +81,26 @@ class UserController extends Controller
 
     public function store(UserPost $request){
 
-        $validated_data = $request->validated();
+        //adm e bloqueado injetado (a 0) como extra com hidden na create.blade
 
+        $validated_data = $request->validated();
+        //dd($validated_data);
         $newUser = new User;
         $newUser->name = $validated_data['name'];
         $newUser->email = $validated_data['email'];
         $newUser->NIF = $validated_data['NIF'];
         $newUser->telefone = $validated_data['telefone'];
         $newUser->password = Hash::make($validated_data['password']);
-        $newUser->adm = '0';
-        $newUser->bloqueado = '0';
+        $newUser->adm = $validated_data['adm'];
+        $newUser->bloqueado = $validated_data['bloqueado'];
         if ($request->hasFile('foto')) {
             $path = $request->foto->store('storage/app/public/fotos');
             $newUser->foto = basename($path);
         }
         $newUser->save();
-
-        /*
-        //todo alert msg quando rotas tiverem OK
-        return redirect()->route('#')
-            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi criado com sucesso!')
+        return redirect()->route('apresentacao')
+            ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
-        */
     }
 
     public function edit(User $user){
@@ -103,7 +112,7 @@ class UserController extends Controller
     public function update(UserPost $request, User $user){
 
         $validated_data = $request->validated();
-
+        
         $user->name = $validated_data['name'];
         $user->email = $validated_data['email'];
         $user->NIF = $validated_data['NIF'];
@@ -115,13 +124,9 @@ class UserController extends Controller
         }
 
         $user->save();
-
-        /*
-        //todo alert msg quando rotas tiverem OK
-        return redirect()->route('#')
-            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi atualizado com sucesso!')
+        return redirect()->route('apresentacao')
+            ->with('alert-msg', 'User "' . $user->name . '" foi atualizado com sucesso!')
             ->with('alert-type', 'success');
-        */
     }
 
     public function mudarPass(User $user)
@@ -137,7 +142,7 @@ class UserController extends Controller
 
     public function destroy_foto(User $user)
     {
-        Storage::delete('public/app/public/fotos/' . $user->foto);
+        Storage::delete('storage/fotos/' . $user->foto);
         $user->foto = null;
         $user->save();
         return redirect()->route('users.edit', ['user' => $user])
@@ -149,6 +154,29 @@ class UserController extends Controller
     {
         $total_users = User::count();
         return $total_users;
+    }
+
+    public function storePassword(UserPost $request, User $user)
+    {
+        $validated_data = $request->validated();
+
+        if(!(Hash::check($validated_data['oldPassword'], $user->password))){
+            return redirect()->back()
+                ->with('alert-msg', 'Password errada!')
+                ->with('alert-type', 'error');
+        }
+
+        if(strcmp($validated_data['newPassword'], $validated_data['confPassword']) != 0){
+             return redirect()->back()
+                ->with('alert-msg', 'Passwords nao coincidem!')
+                ->with('alert-type', 'error');
+        }
+
+        $user->password=Hash::make($validated_data['newPassword']);
+        $user->save();
+        return redirect()->route('apresentacao')
+            ->with('alert-msg', 'Password de "' . $User->name . '" foi atualizada com sucesso!')
+            ->with('alert-type', 'success');
     }
 
 }

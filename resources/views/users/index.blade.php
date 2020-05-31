@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout_admin')
 @section('title','Users')
 @section('content')
 
@@ -16,7 +16,7 @@
             @foreach($users as $user)
                 <tr>
                     <td>
-                        <img src="{{$user->foto ? asset('storage/app/public/fotos/' . $user->foto) : asset('img/default_img.png') }}" alt="Foto do User" class="img-profile rounded-circle" style="width:40px;height:40px">
+                        <img src="{{$user->foto ? asset('storage/fotos/' . $user->foto) : asset('img/default_img.png') }}" alt="Foto do User" class="img-profile rounded-circle" style="width:40px;height:40px">
                     </td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>                    

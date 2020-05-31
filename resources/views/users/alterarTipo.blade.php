@@ -1,14 +1,14 @@
 @extends('layout_admin')
 @section('title','Alterar Tipo' )
 @section('content')
-    <form method="POST" action="{{route('users.storeTipo', ['user' => $user])}}" class="form-group">
+    <form method="POST" action=" {{ route('users.guardar.Tipo', ['user' => $user]) }}" class="form-group">
         @csrf
         @method('PUT')
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <input type="hidden" name="adm" value="0">
-                <input type="checkbox" class="form-check-input" id="idAdm" name="adm" value="1" {{old('adm', $user->adm) == '1' ? 'checked' : ''}}>
-                <label class="form-check-label" for="idAdm">
+                <input type="checkbox" class="form-check-input" id="inputAdm" name="adm" value="1" {{old('adm', $user->adm) == '1' ? 'checked' : ''}}>
+                <label class="form-check-label" for="inputAdm">
                     Administrador
                 </label>
             </div>
@@ -22,3 +22,6 @@
         </div>
     </form>
 @endsection
+
+
+
