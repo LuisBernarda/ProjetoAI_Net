@@ -31,8 +31,8 @@ Route::delete('users/{user}/foto', 'UserController@destroy_foto')->name('users.f
 
     //seccao adm users
 Route::get('admin/users', 'UserController@admin')->name('admin.users');
-Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio');
-Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo');
+Route::put('admin/users/{user}', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio');
+Route::put('admin/users/{user}', 'UserController@guardarTipo')->name('users.guardar.Tipo');
 Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo');
 Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('users.alterarBloqueio');
 
@@ -59,7 +59,7 @@ Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name(
 Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
