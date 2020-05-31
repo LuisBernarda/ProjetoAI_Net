@@ -17,8 +17,8 @@ class MovimentoController extends Controller
      public function consultar(Conta $conta, Movimento $movimento){
 
         return view('conta.movimentos.movimento_detalhes')
-            ->withMovimento($movimento)
-            ->withConta($conta);
+            ->withConta($conta)
+            ->withMovimento($movimento);
     }
 
     public function create(Conta $conta){
@@ -65,8 +65,11 @@ class MovimentoController extends Controller
         if ($newMovimento->save()) {
 
         $file = $request->file('fileToUpload');
-        Storage::disk('local')->put('movimentos/'.$newMovimento->id.'.'.$file->extension(), $file->get());
-        $newMovimento->imagem_doc= $newMovimento->id . '.' . $file->extension();
+        if ($file != null) {
+                Storage::disk('local')->put('movimentos/' . $newMovimento->id . '.' . $file->extension(), $file->get());
+                $newMovimento->imagem_doc = $newMovimento->id . '.' . $file->extension();
+        }
+
         $newMovimento->save();
 
         }
@@ -97,80 +100,146 @@ class MovimentoController extends Controller
             ->with('alert-type', 'danger');
         }
 
-        if($validated['tipo']===$movimento->tipo){
+        $movimento=$this->updateMovimento($validated, $conta, $movimento);
+
+
+        $conta->saldo_atual = $movimento->saldo_final;
+
+        $movimento->data = $validated['data'];
+        $movimento->tipo = $validated['tipo'];
+        $movimento->categoria_id = $validated['categoria'];
+        $movimento->descricao = $validated['descricao'];
+
+        if ($movimento->save()) {
+
+            $file = $request->file('fileToUpload');
+            //dd($file);
+            if ($file != null) {
+                Storage::disk('local')->put('movimentos/' . $movimento->id . '.' . $file->extension(), $file->get());
+                $movimento->imagem_doc = $movimento->id . '.' . $file->extension();
+            }
+
+            $movimento->save();
+        }
+
+        $conta->save();
+
+        $this->updateMovimentos($conta,$movimento);
+
+
+        return redirect()->route('conta.consultar', [$conta]);
+    }
+
+    public function updateMovimentos(Conta $conta, Movimento $movimento)
+    {
+
+        $listaMovimentos=$conta->movimentos();
+        $listaMovimentos=$listaMovimentos->where('data', '<=', date('Y-m-d'));
+       // dd(head($listaMovimentos));
+        foreach($listaMovimentos as $id=>$movimentoData){
+            dd($movimentoData->nome);
+        }
+        return true;
+    }
+
+    public function updateMovimento(Array $validated, Conta $conta, Movimento $movimento)
+    {
+        if ($validated['tipo'] === $movimento->tipo && $validated['valor'] != $movimento->valor) {
 
             if ($validated['tipo'] === "R") {
 
                 if ($movimento->valor > $validated['valor']) {
                     $movimento->valor = $movimento->valor - $validated['valor'];
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    return $movimento;
 
                 } elseif ($movimento->valor < $validated['valor']) {
                     $movimento->valor = $validated['valor'] - $movimento->valor;
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    return $movimento;
 
                 } else {
                     $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    return $movimento;
                 }
             } elseif ($validated['tipo'] === "D") {
 
                 if ($movimento->valor < $validated['valor']) {
                     $movimento->valor = $validated['valor'] - $movimento->valor;
+                    $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                    return $movimento;
 
                 } elseif ($movimento->valor > $validated['valor']) {
                     $movimento->valor = $movimento->valor - $validated['valor'];
+                    $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                    return $movimento;
 
                 } else {
                     $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+
+                    return $movimento;
                 }
+            }
 
-        }else {
-
+        }
+        elseif(strcmp($validated['tipo'],$movimento->tipo)!=0 && $validated['valor'] != $movimento->valor) {
             if ($validated['tipo'] === "R") {
 
                 if ($movimento->valor > $validated['valor']) {
                     $movimento->valor = $movimento->valor - $validated['valor'];
-
-                }elseif ($movimento->valor < $validated['valor']) {
-                    $movimento->valor = $validated['valor'] - $movimento->valor;
-
-                }else {
                     $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    return $movimento;
+
+                } elseif ($movimento->valor < $validated['valor']) {
+                    $movimento->valor = $validated['valor'] - $movimento->valor;
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    return $movimento;
+
+                } else {
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                    return $movimento;
+
                 }
+
 
             } elseif ($validated['tipo'] === "D") {
 
                 if ($movimento->valor < $validated['valor']) {
                     $movimento->valor = $validated['valor'] - $movimento->valor;
-
-                }elseif($movimento->valor > $validated['valor']) {
-                    $movimento->valor = $movimento->valor - $validated['valor'];
-
-                }else {
                     $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                    return $movimento;
+
+                } elseif ($movimento->valor > $validated['valor']) {
+                    $movimento->valor = $movimento->valor - $validated['valor'];
+                    $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                    return $movimento;
+
+                } else {
+                    $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                    return $movimento;
                 }
+
             }
+
+
         }
-    }
+        elseif(strcmp($validated['tipo'], $movimento->tipo) != 0 && $validated['valor'] == $movimento->valor){
 
-    $conta->saldo_atual = $movimento->saldo_final;
+            if ($validated['tipo'] === "R") {
 
-    $movimento->data = $validated['data'];
-    $movimento->tipo = $validated['tipo'];
-    $movimento->categoria_id = $validated['categoria'];
-    $movimento->descricao = $validated['descricao'];
+                $movimento->saldo_final = $conta->saldo_atual + $movimento->valor;
+                return $movimento;
 
-    if ($movimento->save()) {
+            }else{
 
-        $file = $request->file('fileToUpload');
-        Storage::disk('local')->put('movimentos/' . $movimento->id . '.' . $file->extension(), $file->get());
-        $movimento->imagem_doc = $movimento->id . '.' . $file->extension();
-        $movimento->save();
-    }
+                $movimento->saldo_final = $conta->saldo_atual - $movimento->valor;
+                return $movimento;
+            }
 
-    $conta->save();
+        }
 
-    return redirect()->route('conta.consultar', [$conta]);
-
-
+        return $movimento;
     }
 
     public function destroy(Conta $conta, Movimento $movimento)
@@ -212,6 +281,7 @@ class MovimentoController extends Controller
 
         return redirect()->back()
             ->withMovimento($movimento)
+            ->withConta($conta)
             ->with('alert-msg', 'Este Movimento não contém um Documento associado')
             ->with('alert-type', 'danger');
 
@@ -231,4 +301,6 @@ class MovimentoController extends Controller
         $total_movimentos = Movimento::count();
         return $total_movimentos;
     }
+
+
 }

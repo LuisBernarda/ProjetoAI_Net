@@ -32,6 +32,7 @@ class ContaController extends Controller
     public function consultar(Conta $conta, Request $request){
 
         $movimentos = $conta->movimentos();
+        //dd($movimentos);
         if ($request['categoria'] != null && strcmp($request['categoria'],"null" )!=0) {
             $movimentos = $movimentos->where('categoria_id', $request['categoria']);
         }
@@ -123,7 +124,8 @@ class ContaController extends Controller
     public function detalhesMovimento(Movimento $movimento,Conta $conta){
 
         return view('conta.movimento_detalhes')
-            ->withMovimento($movimento);
+            ->withMovimento($movimento)
+            ->withConta($conta);
     }
 
     public function counter()

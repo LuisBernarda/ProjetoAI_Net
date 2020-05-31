@@ -2,8 +2,9 @@
 
 namespace App;
 
+use App\Conta;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Http\Requests\StoreMovimento as RequestsStoreMovimento;
 class Movimento extends Model
 {
     //
@@ -24,5 +25,7 @@ class Movimento extends Model
     public function categorias(){
         return $this->hasmany('App\Categoria','categoria_id','id');
     }
+
+
 
 }
