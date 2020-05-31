@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Conta;
 use Illuminate\Support\Facades\Auth;
 
-// use App\Http\Controllers\StoreConta;
+
 use App\Http\Requests\StoreConta as RequestsStoreConta;
 use App\Movimento;
 use App\Categoria;
@@ -17,10 +17,8 @@ class ContaController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         $contas = $user->contas;
 
-        //dd($contas);
         return view('conta.index')
             ->withContas($contas);
     }
@@ -29,14 +27,12 @@ class ContaController extends Controller
     {
         return view('conta.edit')
             ->withConta($conta);
-
-
     }
 
     public function consultar(Conta $conta, Request $request){
 
-
         $movimentos = $conta->movimentos();
+        //dd($movimentos);
         if ($request['categoria'] != null && strcmp($request['categoria'],"null" )!=0) {
             $movimentos = $movimentos->where('categoria_id', $request['categoria']);
         }
@@ -45,6 +41,7 @@ class ContaController extends Controller
             //$movimentos = $conta->movimentos()->where()->orderBy('data', 'DESC',)->paginate(10);
             $movimentos = $movimentos->where('tipo', $request['tipo']);
         }
+
         $movimentos = $movimentos->orderBy('data', 'DESC')->paginate(10);
 
         $listaCategorias = Categoria::all();
@@ -64,7 +61,7 @@ class ContaController extends Controller
     }
 
     public function store(RequestsStoreConta $request){
-        //dd("STORE");
+
         $validated = $request->validated();
 
         $newConta= new Conta;
@@ -73,7 +70,7 @@ class ContaController extends Controller
         $newConta->descricao = $validated['descricao'];
         $newConta->saldo_abertura = $validated['saldo_abertura'];
         $newConta->saldo_atual = $validated['saldo_abertura'];
-        //dd($validated);
+
         $newConta->save();
 
          return redirect()->route('conta.index');
@@ -88,9 +85,8 @@ class ContaController extends Controller
         $conta->user_id = Auth::user()->id;
         $conta->nome = $validated_data['nome'];
         $conta->descricao = $validated_data['descricao'];
-        //$conta->saldo_abertura = $validated_data['saldo_abertura'];
         $conta->saldo_atual = $validated_data['saldo_atual'];
-        //dd($validated);
+
         $conta->save();
 
         return redirect()->route('conta.index')
@@ -127,15 +123,9 @@ class ContaController extends Controller
 
     public function detalhesMovimento(Movimento $movimento,Conta $conta){
 
-        // if ($movimento->imagem_doc->file()) {
-        //     $documento=$movimento->imagem_doc;
-        // }else{
-        //     $documento="";
-        // }
-
-            //dd($conta);
         return view('conta.movimento_detalhes')
-            ->withMovimento($movimento);
+            ->withMovimento($movimento)
+            ->withConta($conta);
     }
 
     public function counter()

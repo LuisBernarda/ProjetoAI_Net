@@ -67,7 +67,7 @@
                     <td>{{$movimento->categoria['tipo']}}</td>
                     <td>{{$movimento->categoria['nome']}}</td>
                     <td>{{$movimento->data}}</td>
-                    <td><a href="{{route('conta.movimentos.consultar', ['movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
+                    <td><a href="{{route('conta.movimentos.consultar', ['conta'=>$conta,'movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
                         <a href="{{route('conta.movimentos.edit', ['conta'=>$conta,'movimento' => $movimento])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
                          <a><form action="{{route('conta.movimentos.destroy', ['conta' => $conta, 'movimento' => $movimento])}}" method="POST">
                             @csrf

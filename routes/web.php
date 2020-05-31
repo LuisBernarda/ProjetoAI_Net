@@ -65,8 +65,8 @@ Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy')
 
 //Movimentos
 Route::get('conta/{conta}/{movimento}/upload', 'MovimentoController@upload')->name('conta.movimentos.upload');
-Route::get('conta/{movimento}/detalhes', 'MovimentoController@consultar')->name('conta.movimentos.consultar');
-Route::get('conta//{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
+Route::get('conta/{conta}/{movimento}/detalhes', 'MovimentoController@consultar')->name('conta.movimentos.consultar');
+Route::get('conta/{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
 Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
 Route::put('conta/{conta}/{movimento}/edit', 'MovimentoController@update')->name('conta.movimentos.update');
 Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
