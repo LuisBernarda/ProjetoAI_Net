@@ -59,7 +59,13 @@
       </li>
       @else
       @endauth
-
+      @can('viewAdm', App\User::class)
+      <li class="nav-item {{Route::currentRouteName()=='admin.users'? 'active': ''}}">
+      <a class="nav-link" href="{{route('admin.users')}}">
+        <i class="fas fa-fw fa-address-book"></i>
+        <span>Admnistração</span></a>
+      </li>
+      @endcan
       <!-- Divider -->
       <hr class="sidebar-divider">
 

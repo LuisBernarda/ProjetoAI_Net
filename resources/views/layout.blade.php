@@ -87,8 +87,13 @@
                         @csrf
                     </form>
                 </li>
-                
                 @endauth
+                @can('viewAdm', App\User::class)
+                <li class="">
+                    <i class="fas fa-users"></i>
+                    <a href="{{route('admin.users')}}">Administração</a>
+                </li>
+                @endcan
             </ul>
         </nav>
 

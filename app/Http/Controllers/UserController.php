@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserPost;
 
 
@@ -93,7 +94,7 @@ class UserController extends Controller
             $newUser->foto = basename($path);
         }
         $newUser->save();
-        return redirect()->route('admin.users')
+        return redirect()->route('apresentacao')
             ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
     }
@@ -153,6 +154,29 @@ class UserController extends Controller
     {
         $total_users = User::count();
         return $total_users;
+    }
+
+    public function storePassword(UserPost $request, User $user)
+    {
+        $validated_data = $request->validated();
+
+        if(!(Hash::check($validated_data['oldPassword'], $user->password))){
+            return redirect()->back()
+                ->with('alert-msg', 'Password errada!')
+                ->with('alert-type', 'error');
+        }
+
+        if(strcmp($validated_data['newPassword'], $validated_data['confPassword']) != 0){
+             return redirect()->back()
+                ->with('alert-msg', 'Passwords nao coincidem!')
+                ->with('alert-type', 'error');
+        }
+
+        $user->password=Hash::make($validated_data['newPassword']);
+        $user->save();
+        return redirect()->route('apresentacao')
+            ->with('alert-msg', 'Password de "' . $User->name . '" foi atualizada com sucesso!')
+            ->with('alert-type', 'success');
     }
 
 }
