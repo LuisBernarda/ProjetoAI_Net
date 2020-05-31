@@ -23,16 +23,15 @@ class UserPost extends FormRequest
      *
      * @return array
      */
+
+     //nenhum ignore funciona :(
     public function rules()
     {
         return [
            
-           // 'name' =>[
-           // 
-           // Rule::required()->ignore($this->user),
-           // ]
-            //'password' =>       'required',
-            //'adm'   =>          'required|boolean',
+            'name'   =>         'required',
+            'password' =>       'required',
+            'adm'   =>          'required|boolean',
             'bloqueado' =>      'required|boolean',
             'NIF'   =>          'nullable|integer',
             'telefone' =>       'nullable',
@@ -40,7 +39,7 @@ class UserPost extends FormRequest
             'email' => [
                'required',
                'email',
-               Rule::unique('users')->ignore($this->user)],
+                Rule::unique('users')->ignore($this->user)],
             
         ];
     }

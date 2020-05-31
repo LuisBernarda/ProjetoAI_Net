@@ -24,16 +24,18 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
+                    @can('view', $user->id, Auth::user())  
                     <td>
-                        @can('view', Auth::id())     
+                         
                         <a href="{{route('users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
-                        @endcan
+                        
                     </td>
                     <td>
-                        @can('view', Auth::id())
+                        
                         <a href="{{route('users.alterarBloqueio', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>
-                        @endcan
+                        
                     </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>
