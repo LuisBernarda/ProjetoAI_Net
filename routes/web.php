@@ -31,8 +31,8 @@ Route::delete('users/{user}/foto', 'UserController@destroy_foto')->name('users.f
 
     //seccao adm users
 Route::get('admin/users', 'UserController@admin')->name('admin.users');
-Route::put('admin/users/{user}', 'UserController@storeBloqueio')->name('users.storeBloqueio');
-Route::put('admin/users/{user}', 'UserController@storeTipo')->name('users.storeTipo');
+Route::put('admin/users/{user}', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio');
+Route::put('admin/users/{user}', 'UserController@guardarTipo')->name('users.guardar.Tipo');
 Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo');
 Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('users.alterarBloqueio');
 

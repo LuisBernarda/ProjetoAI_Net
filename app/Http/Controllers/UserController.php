@@ -40,7 +40,7 @@ class UserController extends Controller
             ->withUser($user);
     }
 
-    public function storeTipo(UserPost $request, User $user){
+    public function guardarTipo(UserPost $request, User $user){
 
         //not functional
         //problemas com ignores
@@ -54,7 +54,7 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function storeBloqueio(UserPost $request, User $user){
+    public function guardarBloqueio(UserPost $request, User $user){
 
         //not functional
         //problemas com ignores
