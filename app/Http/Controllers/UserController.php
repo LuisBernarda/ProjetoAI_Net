@@ -25,7 +25,8 @@ class UserController extends Controller
         $qry = User::query();
         $users = $qry->paginate(15);
         //dd($users);
-        return view('users.admin')->withUsers($users);
+        return view('users.admin')
+            ->withUsers($users);
     }
 
     public function alterarTipo(User $user){

@@ -43,7 +43,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' =>        'datetime',
         'updated_at' =>        'datetime',
-        
     ];
 
     public function contas()
@@ -55,5 +54,15 @@ class User extends Authenticatable
     public function movimentos()
     {
         return $this->hasManyThrough('App\Movimento', 'App\Conta');
+    }
+
+    public function getAdmAttribute($adm)
+    {
+        return $this->attributes['adm'] = ($adm) ? 'Admin' : 'Normal';
+    }
+
+    public function getBloqueadoAttribute($bloqueado)
+    {
+        return $this->attributes['bloqueado'] = ($bloqueado) ? 'Bloqueado' : 'Normal';
     }
 }
