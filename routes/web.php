@@ -38,11 +38,11 @@ Route::middleware('auth')->group(function () {
 });
 
     //seccao adm users
-Route::middleware('auth')->group(function () {
+Route::middleware('verified')->group(function () {
     Route::get('admin/users', 'UserController@admin')->name('admin.users')
       ->middleware('can:viewAdm,App\User');
-    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')
-      ->middleware('can:viewOthers,App\User,user');
+    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio');
+      //->middleware('can:viewOthers,App\User,user');
     Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')
       ->middleware('can:viewOthers,App\User,user');
     Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')
@@ -88,7 +88,7 @@ Route::middleware('verified')->group(function () {
     Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
