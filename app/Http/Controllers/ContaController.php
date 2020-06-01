@@ -98,7 +98,7 @@ class ContaController extends Controller
         $conta->nome = $validated_data['nome'];
         $conta->descricao = $validated_data['descricao'];
         $conta->saldo_atual = $validated_data['saldo_atual'];
-
+        $conta->saldo_abertura = $validated_data['saldo_abertura'];
         $conta->save();
 
         return redirect()->route('conta.index')

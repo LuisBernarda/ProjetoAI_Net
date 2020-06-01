@@ -4,11 +4,12 @@ namespace App;
 
 use App\Conta;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Requests\StoreMovimento as RequestsStoreMovimento;
 class Movimento extends Model
 {
     //
-    protected $softDeletes = true;
+    use SoftDeletes;
 
     public $timestamps = false;
 

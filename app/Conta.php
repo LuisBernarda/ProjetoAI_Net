@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Conta extends Model
 {
     public $timestamps = false;
-    protected $softDeletes=true;
+    use SoftDeletes;
     //
     public function user()
     {
