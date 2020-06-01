@@ -22,7 +22,8 @@ Route::get('/', 'PageController@index')->name('apresentacao');
 
 
     // Secção de Administração
-Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
+Route::get('admin', 'DashboardController@index')->name('admin.dashboard')
+    ->middleware('can:viewAdm', Auth::user());
 
     //Seccao users
 Route::middleware('auth')->group(function () {
@@ -41,8 +42,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('verified')->group(function () {
     Route::get('admin/users', 'UserController@admin')->name('admin.users')
       ->middleware('can:viewAdm,App\User');
-    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio');
-      //->middleware('can:viewOthers,App\User,user');
+    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')
+      ->middleware('can:viewOthers,App\User,user');
     Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')
       ->middleware('can:viewOthers,App\User,user');
     Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')
