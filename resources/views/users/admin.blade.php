@@ -66,28 +66,26 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
-<<<<<<< HEAD
+
                     @can('viewOthers', $user)
                     <td>
                            
                         <a href="{{route('users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
 
-=======
+
                     <td>
                         @can('view', Auth::id())     
                         <a href="{{route('users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
                         @endcan
->>>>>>> parent of f89cadc... Merge branch 'master' of https://github.com/LuisBernarda/ProjetoAI_Net
+
                     </td>
                     <td>
                         @can('view', Auth::id())
                         <a href="{{route('users.alterarBloqueio', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>
                         @endcan
                     </td>
-<<<<<<< HEAD
+
                    @endcan
-=======
->>>>>>> parent of f89cadc... Merge branch 'master' of https://github.com/LuisBernarda/ProjetoAI_Net
                 </tr>
             @endforeach
         </tbody>

@@ -73,10 +73,8 @@ class UserController extends Controller
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
-
-
     }
-}
+
     /*
     public function create(){
 
@@ -108,13 +106,14 @@ class UserController extends Controller
             ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
     }
+    */
 
     public function edit(User $user){
 
         return view('users.edit')
             ->withUser($user);
     }
-    */
+    
     public function update(UserPost $request, User $user){
 
         $validated_data = $request->validated();
