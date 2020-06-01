@@ -17,8 +17,6 @@ use App\Http\Requests\UserPost3;
 use App\Http\Requests\UserPost4;
 use App\Http\Requests\UserPost5;
 
-use App\Http\Requests\UserPost;
-
 class UserController extends Controller
 {
 
@@ -116,7 +114,7 @@ class UserController extends Controller
         return view('users.edit')
             ->withUser($user);
     }
-
+    */
     public function update(UserPost $request, User $user){
 
         $validated_data = $request->validated();
