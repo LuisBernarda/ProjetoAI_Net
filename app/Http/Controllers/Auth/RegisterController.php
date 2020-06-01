@@ -90,9 +90,8 @@ class RegisterController extends Controller
     }
 }
 
-
 /*
-logica portada do UserController para ver se os sistema automatico de mails comeÃ§a a funcionar.
+logica portada do UserController para ver se os sistema automatico de mails começa a funcionar.
 
 $validated_data = $request->validated();
         //dd($validated_data);
@@ -133,3 +132,4 @@ $validated_data = $request->validated();
         ];
     }
 */
+

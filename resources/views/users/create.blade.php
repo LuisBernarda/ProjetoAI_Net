@@ -1,5 +1,3 @@
-<!--
-
 @extends('layout_admin')
 @section('title', 'Novo User' )
 @section('content')
@@ -21,6 +19,3 @@
         <input type="hidden" name="bloqueado" value="0" >
     </form>
 @endsection
-
-
-nao esta a ser utilizada, funcionalidades passaram para auth registerController e views associadas -->

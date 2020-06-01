@@ -12,7 +12,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $primarykey = 'id';
     protected $keytype = 'integer';

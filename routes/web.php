@@ -22,9 +22,7 @@ Route::get('/', 'PageController@index')->name('apresentacao');
 
 
     // Secção de Administração
-Route::get('admin', 'DashboardController@index')->name('admin.dashboard')
-    ->middleware('can:viewAdm,App\User');
-    
+Route::get('admin', 'DashboardController@index')->name('admin.dashboard');
 
     //Seccao users
 Route::middleware('auth')->group(function () {
@@ -41,13 +39,13 @@ Route::middleware('auth')->group(function () {
 
     //seccao adm users
 Route::middleware('verified')->group(function () {
-    Route::get('admin/users', 'UserController@admin')->name('admin.users')       
+    Route::get('admin/users', 'UserController@admin')->name('admin.users')
       ->middleware('can:viewAdm,App\User');
-    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')       
+    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')
       ->middleware('can:viewOthers,App\User');
-    Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')      
+    Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')
       ->middleware('can:viewOthers,App\User');
-    Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')      
+    Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')
       ->middleware('can:viewOthers,App\User');
     Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('users.alterarBloqueio')
       ->middleware('can:viewOthers,App\User');
@@ -58,37 +56,37 @@ Route::middleware('verified')->group(function () {
 //Secção Conta
 Route::middleware('verified')->group(function () {
     Route::get('conta', 'ContaController@index')->name('conta.index');
-      
+
     Route::get('conta/create', 'ContaController@create')->name('conta.create');
-       
+
     Route::get('conta/{conta}/consultar', 'ContaController@consultar')->name('conta.consultar');
-        
+
     Route::get('conta/{conta}/edit', 'ContaController@edit')->name('conta.edit');
-       
+
     Route::post('conta', 'ContaController@store')->name('conta.store');
-       
+
     Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
-        
+
     Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy');
 
 
     //Movimentos
     Route::get('conta/{conta}/{movimento}/upload', 'MovimentoController@upload')->name('conta.movimentos.upload');
-       
+
     Route::get('conta/{conta}/{movimento}/detalhes', 'MovimentoController@consultar')->name('conta.movimentos.consultar');
-       
+
     Route::get('conta/{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
-        
+
     Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
-       
+
     Route::put('conta/{conta}/{movimento}/edit', 'MovimentoController@update')->name('conta.movimentos.update');
-      
+
     Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
-        
-    Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');       
+
+    Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 

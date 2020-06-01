@@ -23,18 +23,16 @@ class UserPost extends FormRequest
      *
      * @return array
      */
-
-    // regras para inserir um utilizador!
-    // funcionalidades passadas para o RegisterController
-
-    // NAO ESTA A SER UTILIZADO!!!!!  DEIXO FICAR POREM----
     public function rules()
     {
         return [
            
-            'name'   =>         'required',
-            'password' =>       'required',
-            'adm'   =>          'required|boolean',
+           // 'name' =>[
+           // 
+           // Rule::required()->ignore($this->user),
+           // ]
+            //'password' =>       'required',
+            //'adm'   =>          'required|boolean',
             'bloqueado' =>      'required|boolean',
             'NIF'   =>          'nullable|integer',
             'telefone' =>       'nullable',
@@ -42,7 +40,7 @@ class UserPost extends FormRequest
             'email' => [
                'required',
                'email',
-                Rule::unique('users')->ignore($this->user)],
+               Rule::unique('users')->ignore($this->user)],
             
         ];
     }
