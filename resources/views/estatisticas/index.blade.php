@@ -4,12 +4,27 @@
 <div>Estatisticas do Utilizador</div>
 @inject('User', 'App\Http\Controllers\UserController')
 <div class="disc">
-    <div class="disc-name">Saldo Total:</div>
-    <a class="disc-count"> {{ $saldo_total=$User->sumSaldo($user) }}</a>
-    <div class="disc-name">Percentagens por Conta:</div>
-    <a class="disc-count"> {{ $User->nomeContas($user) }}</a>
-    @foreach($User->saldosPercent($user) as $saldo)
-        <p>{{number_format((float)($saldo*100)/$saldo_total, 2, '.', '')}}%</p>
-    @endforeach
-</div>
+    <div class="disc-name">Saldo Total: <b>{{ $saldo_total=$User->sumSaldo($user) }} €</b></div>
+
+<table class="table">
+        <thead>
+            <tr>
+
+                <th>Nome Conta</th>
+                <th>Saldo Total</th>
+                <th>Percentagem</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($user->contas as $conta)
+                <tr>
+
+                    <td>{{$conta->nome}}</td>
+                    <td>{{$conta->saldo_atual}}</td>
+                    <td>{{number_format((float)($conta->saldo_atual*100)/$saldo_total, 2, '.', '')}}% </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @endsection

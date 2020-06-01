@@ -65,7 +65,7 @@ class UserController extends Controller
 
         //funcional
         //problema resolvido com recurso a mais posts, se fosse feito um refactor ao codigo
-        
+
         $validated_data = $request->validated();
 
         $user->bloqueado = $validated_data['bloqueado'];
@@ -113,7 +113,7 @@ class UserController extends Controller
         return view('users.edit')
             ->withUser($user);
     }
-    
+
     public function update(UserPostUpdate $request, User $user){
 
         $validated_data = $request->validated();
@@ -214,7 +214,7 @@ class UserController extends Controller
 
     public function consultarUser(Request $request){
 
-        
+
         $qry = User::query();
 
         if ($request['nome'] != null){
@@ -232,7 +232,7 @@ class UserController extends Controller
     public function consultarAdm(Request $request){
 
         $qry = User::query();
-       
+
 
         if ($request['nome'] != null){
             $qry = $qry->where('name', 'like', '%' . $request['nome'] . '%');
@@ -273,7 +273,8 @@ class UserController extends Controller
     }
 
     public function estatisticas(User $user)
-    {       
-        return view('estatisticas.index')->withUser($user);
+    {
+        return view('estatisticas.index')
+            ->withUser($user);
     }
 }

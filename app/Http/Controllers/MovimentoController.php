@@ -253,7 +253,7 @@ class MovimentoController extends Controller
 
     public function deleteFile()
     {
-        dd("ESTOU AQUI");
+
     }
 
 

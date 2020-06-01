@@ -86,9 +86,10 @@ Route::middleware('verified')->group(function () {
 
     Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
 
+    //Route::delete('conta/{conta}/{movimento}', 'MovimentoController@deleteFile')->name('conta.movimentos.deleteFile');
+
     Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
 
-    //Estatisticas
     Route::get('Estatisticas/{user}', 'UserController@estatisticas')->name('estatisticas');
 });
 
