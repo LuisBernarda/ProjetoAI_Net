@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('register') }}" <form method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="adm" value="0" >
                         <input type="hidden" name="bloqueado" value="0" >
@@ -95,7 +95,7 @@
                             <label for="foto" class="col-md-4 col-form-label text-md-right">{{ __('Foto') }}</label>
 
                             <div class="col-md-6">
-                                <input id="foto" type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" value="{{ old('foto') }}">
+                                <input id="foto" type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" value={{ null }}>
 
                                 @error('foto')
                                     <span class="invalid-feedback" role="alert">

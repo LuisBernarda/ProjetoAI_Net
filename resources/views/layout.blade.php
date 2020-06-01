@@ -47,10 +47,18 @@
                     <i class="fas fa-info-circle"></i>
                     <a href="">Apresentação</a>
                 </li>
+                <hr>
+                @auth
                 <li class="">
                     <i class="fas fa-box"></i>
                     <a href="{{ route('estatisticas', ['user' => Auth::user()]) }}">Estatistica</a>
                 </li>
+                @else
+                <li class="">
+                    <i class="far fa-file"></i>
+                    <a href={{ route('login') }}>Estatistica</a>
+                </li>
+                @endauth
                 @auth
                 <li class="">
                     <i class="far fa-file"></i>

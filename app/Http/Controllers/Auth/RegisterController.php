@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -50,6 +52,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -58,7 +61,7 @@ class RegisterController extends Controller
             'bloqueado'   =>  ['required', 'boolean'],
             'NIF'   =>  ['nullable', 'integer'],
             'telefone'   =>  ['nullable'],
-            'foto'      => ['nullable', 'image', 'max:8192'],
+            'foto'      => ['nullable', 'image', 'max:8192'],            
         ]);
     }
 
@@ -70,13 +73,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        
+        if($data['foto'] != null){
         $imageName = time() . '.' . $data['foto']->getClientOriginalExtension();
 
         $data['foto']->move(
         base_path() . '/public/storage/fotos/', $imageName
         );
-
+        } else {
+            $imageName = "";
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -91,7 +97,7 @@ class RegisterController extends Controller
 }
 
 /*
-logica portada do UserController para ver se os sistema automatico de mails começa a funcionar.
+logica portada do UserController para ver se os sistema automatico de mails comeÃ§a a funcionar.
 
 $validated_data = $request->validated();
         //dd($validated_data);
