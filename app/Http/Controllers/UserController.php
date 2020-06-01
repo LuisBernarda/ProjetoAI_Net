@@ -256,9 +256,20 @@ class UserController extends Controller
 
     public function sumSaldo(User $user)
     {
-        dd($user);
         $saldo_total = $user->contas->sum('saldo_atual');
         return $saldo_total;
+    }
+
+    public function saldosPercent(User $user)
+    {
+        $saldos = $user->contas->pluck('saldo_atual');
+        return $saldos;
+    }
+
+    public function nomeContas(User $user)
+    {
+        $nomes = $user->contas->pluck('nome');
+        return $nomes;
     }
 
     public function estatisticas(User $user)
