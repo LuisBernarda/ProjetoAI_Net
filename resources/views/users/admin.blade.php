@@ -67,7 +67,7 @@
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
 
-                    @can('viewOthers',$user,Auth::user())
+                    @can('viewOthers',$user)
                     <td>
                           
                         <a href="{{route('users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
