@@ -254,4 +254,15 @@ class UserController extends Controller
         return view('users.admin')->withUsers($users);
     }
 
+    public function sumSaldo(User $user)
+    {
+        dd($user);
+        $saldo_total = $user->contas->sum('saldo_atual');
+        return $saldo_total;
+    }
+
+    public function estatisticas(User $user)
+    {       
+        return view('estatisticas.index')->withUser($user);
+    }
 }

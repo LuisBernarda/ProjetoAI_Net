@@ -80,13 +80,16 @@ Route::middleware('verified')->group(function () {
 
     Route::get('conta/{conta}/create', 'MovimentoController@create')->name('conta.movimentos.create');
 
-    Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit') ->name('conta.movimentos.edit');
+    Route::get('conta/{conta}/{movimento}/edit', 'MovimentoController@edit')->name('conta.movimentos.edit');
 
     Route::put('conta/{conta}/{movimento}/edit', 'MovimentoController@update')->name('conta.movimentos.update');
 
     Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
 
     Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
+
+    //Estatisticas
+    Route::get('Estatisticas/{user}', 'UserController@estatisticas')->name('estatisticas');
 });
 
 Auth::routes(['verify' => true]);

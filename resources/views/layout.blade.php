@@ -49,7 +49,7 @@
                 </li>
                 <li class="">
                     <i class="fas fa-box"></i>
-                    <a href="">Estatistica</a>
+                    <a href="{{ route('estatisticas', ['user' => Auth::user()]) }}">Estatistica</a>
                 </li>
                 @auth
                 <li class="">
