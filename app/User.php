@@ -10,7 +10,6 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-    
 
     public $timestamps = true;
 
