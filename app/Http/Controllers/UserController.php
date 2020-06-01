@@ -52,8 +52,8 @@ class UserController extends Controller
 
     public function guardarTipo(UserPost3 $request, User $user){
 
-        //not functional
-        //problemas com ignores
+        //funcional
+        //problema resolvido com recurso a mais posts, se fosse feito um refactor ao codigo ver mais regras de ignore
         
         $validated_data = $request->validated();
         
@@ -66,8 +66,8 @@ class UserController extends Controller
 
     public function guardarBloqueio(UserPost4 $request, User $user){
 
-        //not functional
-        //problemas com ignores
+        //funcional
+        //problema resolvido com recurso a mais posts, se fosse feito um refactor ao codigo ver mais regras de ignore
         
         $validated_data = $request->validated();
         
@@ -167,8 +167,6 @@ class UserController extends Controller
             ->with('alert-msg', 'Contas de User "' . $oldName . '" foram apagadas com sucesso!')
             ->with('alert-type', 'success');
         } catch (\Throwable $th) {
-            // $th é a exceção lançada pelo sistema - por norma, erro ocorre no servidor BD MySQL
-            // Descomentar a próxima linha para verificar qual a informação que a exceção tem
 
             if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
                 return redirect()->route('apresentacao')
@@ -224,41 +222,42 @@ class UserController extends Controller
     public function consultarUser(Request $request){
 
         
-        $users = User::all();
+        $qry = User::query();
 
         if ($request['nome'] != null){
-            $users = $users->where('name', 'like', '%' . $request['nome'] . '%');
+            $qry = $qry->where('name', 'LIKE', '%' .$request['nome']. '%');
         }
 
         if ($request['email'] != null){
-            $users = $users->where('email', 'like', '%' . $request['email'] . '%');
+            $qry = $qry->where('email', 'LIKE', '%' .$request['email']. '%');
         }
 
+        $users = $qry->paginate(15);
         return view('users.index')->withUsers($users);
     }
 
     public function consultarAdm(Request $request){
 
         $qry = User::query();
-        $users = $qry->paginate(10);
+       
 
         if ($request['nome'] != null){
-            $users = $users->where('name', 'like', '%' . $request['nome'] . '%');
+            $qry = $qry->where('name', 'like', '%' . $request['nome'] . '%');
         }
 
         if ($request['email'] != null){
-            $users = $users->where('email', 'like', '%' . $request['email'] . '%');
+            $qry = $qry->where('email', 'like', '%' . $request['email'] . '%');
         }
 
-        if ($request['tipo'] != null){
-            $users = $users->where('tipo', $request['tipo'] );
-        }$users = User::query();
+        if ($request['adm'] != null){
+            $qry = $qry->where('adm', $request['adm'] );
+        }
 
         if ($request['bloqueado'] != null){
-            $users = $users->where('bloqueado', $request['bloqueado']);
+            $qry = $qry->where('bloqueado', $request['bloqueado']);
         }
 
-
+        $users = $qry->paginate(15);
         return view('users.admin')->withUsers($users);
     }
 

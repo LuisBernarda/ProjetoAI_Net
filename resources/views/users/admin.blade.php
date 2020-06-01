@@ -2,6 +2,48 @@
 @section('title','Users')
 @section('content')
 
+    <div class="form-group text-left">
+
+        <form action="{{route('admin.users.consultar')}}" method="GET">
+            @csrf
+            @method("GET")
+            <div class="title-items">Filtrar Users:</div>
+            <hr>
+                <div class="item-form">
+                    <label for="nome">nome</label>
+                    <input type="text" class="form-control" name="nome" id="nome" value="" style="width:45%;">   
+                </div>
+               
+                <div class="item-form">
+                    <label for="nome">email</label>
+                    <input type="text" class="form-control" name="email" id="email" value="" style="width:45%;">
+                </div>
+            </div>
+            
+            
+            <div class="item-form">
+                <label for="idTipo">Filtrar por Tipo: </label>
+                <select name="adm" id="idTipo">
+                    <option value="" selected></option>
+                    <option value="0">Normal</option>
+                    <option value="1">Admin</option>
+                </select>
+            
+                <span style="display:inline-block; width: 50px;"></span>
+            
+                <label for="idBlock">Filtrar por Bloqueado: </label>
+                <select name="bloqueado" id="idBlock">
+                    <option value="" selected></option>
+                    <option value="0">Normal</option>
+                    <option value="1">Bloqueado</option>
+                </select>
+            </div>
+            <hr>
+
+            <a><input type="submit" class="btn btn-secondary" value="Filtrar"></a>
+        </form>
+        <hr>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -40,6 +82,7 @@
             @endforeach
         </tbody>
     </table>
+    
     {{ $users->withQueryString()->links() }}
 @endsection
 
