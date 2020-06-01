@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 //ja n esta a ser utilizado, funcionalidades passaram para o register controller
 //use App\Http\Requests\UserPost;
-use App\Http\Requests\UserPost2;
-use App\Http\Requests\UserPost3;
-use App\Http\Requests\UserPost4;
-use App\Http\Requests\UserPost5;
+use App\Http\Requests\UserPostUpdate;
+use App\Http\Requests\UserPostTipo;
+use App\Http\Requests\UserPostBloqueado;
+use App\Http\Requests\UserPostPassword;
 
 class UserController extends Controller
 {
@@ -48,7 +48,7 @@ class UserController extends Controller
             ->withUser($user);
     }
 
-    public function guardarTipo(UserPost $request, User $user){
+    public function guardarTipo(UserPostTipo $request, User $user){
 
         //funcional
         //problema resolvido com recurso a mais posts, se fosse feito um refactor ao codigo ver mais regras de ignore
@@ -61,7 +61,7 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function guardarBloqueio(UserPost $request, User $user){
+    public function guardarBloqueio(UserPostBloqueado $request, User $user){
 
         //funcional
         //problema resolvido com recurso a mais posts, se fosse feito um refactor ao codigo
@@ -114,7 +114,7 @@ class UserController extends Controller
             ->withUser($user);
     }
     
-    public function update(UserPost $request, User $user){
+    public function update(UserPostUpdate $request, User $user){
 
         $validated_data = $request->validated();
 
@@ -189,7 +189,7 @@ class UserController extends Controller
         return $total_users;
     }
 
-    public function storePassword(UserPost $request, User $user)
+    public function storePassword(UserPostPassword $request, User $user)
     {
         $validated_data = $request->validated();
 

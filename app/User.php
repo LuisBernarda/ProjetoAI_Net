@@ -64,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getBloqueadoAttribute($bloqueado)
     {
-        return $this->attributes['bloqueado'] = ($bloqueado) ? 'Bloqueado' : 'Normal';
+        return /*$this->attributes['bloqueado'] =*/ ($bloqueado) ? 'Bloqueado' : 'Normal';
     }
 
     public function contasPartilhas()

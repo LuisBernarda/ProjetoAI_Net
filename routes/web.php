@@ -38,17 +38,17 @@ Route::middleware('auth')->group(function () {
 });
 
     //seccao adm users
-Route::middleware('verified')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('admin/users', 'UserController@admin')->name('admin.users')
       ->middleware('can:viewAdm,App\User');
     Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')
-      ->middleware('can:viewOthers,App\User');
+      ->middleware('can:viewOthers,App\User,user');
     Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')
-      ->middleware('can:viewOthers,App\User');
+      ->middleware('can:viewOthers,App\User,user');
     Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')
-      ->middleware('can:viewOthers,App\User');
+      ->middleware('can:viewOthers,App\User,user');
     Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('users.alterarBloqueio')
-      ->middleware('can:viewOthers,App\User');
+      ->middleware('can:viewOthers,App\User,user');
     Route::get('admin/users/consultar', 'UserController@consultarAdm')->name('admin.users.consultar')
       ->middleware('can:viewAdm,App\User');
 });
@@ -68,6 +68,8 @@ Route::middleware('verified')->group(function () {
     Route::put('conta/{conta}', 'ContaController@update')->name('conta.update');
 
     Route::delete('conta/{conta}', 'ContaController@destroy')->name('conta.destroy');
+
+    Route::get('conta/{conta}/partilhas', 'ContaController@partilhas')->name('conta.partilhas');
 
 
     //Movimentos

@@ -22,6 +22,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    
 
     /**
      * Where to redirect users after login.
@@ -42,8 +43,11 @@ class LoginController extends Controller
     
     protected function authenticated(Request $request)
     {
-        if (Auth::user()->bloqueado == 'Bloqueado') {
+        $valor = Auth::user()->bloqueado;
+        //dd($valor);
+        if ($valor == "Bloqueado") {
             Auth::logout();
+            
         }
 
     }

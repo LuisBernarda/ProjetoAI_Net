@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conta;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -27,6 +28,17 @@ class ContaController extends Controller
     {
         return view('conta.edit')
             ->withConta($conta);
+    }
+
+    public function partilhas(Conta $conta){
+
+        $qry = User::query();
+
+        //$users = $qry->where('id', $conta->pivot->user_id);
+        $users = User::findOrFail($conta->pivot->user_id);
+
+        return view('contas.partilhas')
+            ->withUsers($users);
     }
 
     public function consultar(Conta $conta, Request $request){

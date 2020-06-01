@@ -13,13 +13,15 @@ class UserPolicy
    //possibilitar visualizaçao da parte de administracao a admins -- working
     public function viewAdm(User $user)
     {
-        return $user->adm;
+        return $user->adm == "Admin";
     }
 
     //impedir que um admin possa alterar os seus proprios tipos (adm,bloqueado) ... se eu estiver a pensar bem --not working
-    public function view(User $user, $id)
+    public function viewOthers(User $user,User $user2)
     {
-        return true;
+       $id1 = $user->id;
+       $id2 = $user2->id;
+       return ($user->adm == "Admin") && ($id1 != $id2);
     }
 
     //assegura que so o proprio utilizador possa alterar os seus dados, mais segurança

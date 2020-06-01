@@ -22,6 +22,7 @@
                     <td>{{$conta->saldo_atual}}</td>
                     <td><a href="{{route('conta.consultar', ['conta' => $conta])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Detalhes</a>
                         <a href="{{route('conta.edit', ['conta' => $conta])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar</a>
+                        <a href="{{route('conta.partilhas', ['conta' => $conta])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Partilhas</a>
 
                         <form action="{{route('conta.destroy', ['conta' => $conta])}}" method="POST">
                             @csrf

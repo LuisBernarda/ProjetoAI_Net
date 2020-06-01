@@ -67,22 +67,17 @@
                     <td>{{$user->adm}}</td>
                     <td>{{$user->bloqueado}}</td>
 
-                    @can('viewOthers', $user)
+                    @can('viewOthers',$user,Auth::user())
                     <td>
-                           
+                          
                         <a href="{{route('users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
-
-
-                    <td>
-                        @can('view', Auth::id())     
-                        <a href="{{route('users.alterarTipo', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar tipo</a>
-                        @endcan
+                        
 
                     </td>
                     <td>
-                        @can('view', Auth::id())
+                        
                         <a href="{{route('users.alterarBloqueio', ['user' => $user])}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Alterar bloqueio</a>
-                        @endcan
+                       
                     </td>
 
                    @endcan
