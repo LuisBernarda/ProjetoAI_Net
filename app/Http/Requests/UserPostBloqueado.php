@@ -21,10 +21,11 @@ class UserPostBloqueado extends FormRequest
      *
      * @return array
      */
+     //regras para atualizar o estado(bloqueado) de um utilizador
     public function rules()
     {
         return [
-            //
+            'bloqueado'   =>          'required|boolean',
         ];
     }
 }

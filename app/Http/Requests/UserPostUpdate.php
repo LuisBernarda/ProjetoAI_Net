@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UserPostBloqueado extends FormRequest
+
+class UserPostUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +24,18 @@ class UserPostBloqueado extends FormRequest
      * @return array
      */
 
-     //regras para atualizar o estado(bloqueado) de um utilizador
+     //regras para atualizar os dados(sem password) um utilizador
     public function rules()
     {
         return [
-            'bloqueado'   =>          'required|boolean',
+            'name'   =>         'required',
+            'NIF'   =>          'nullable|integer',
+            'telefone' =>       'nullable',
+            'foto' =>           'nullable|image|max:8192',
+            'email' => [
+               'required',
+               'email',
+                Rule::unique('users')->ignore($this->user)],
         ];
     }
 }
