@@ -22,6 +22,9 @@ class Conta extends Model
     }
 
 
-
+    public function usersPartilhas()
+    {
+            return $this->belongsToMany('App\User', 'autorizacoes_contas', 'conta_id', 'user_id')->withPivot('so_leitura');
+    }
 
 }
