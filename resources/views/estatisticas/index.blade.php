@@ -5,6 +5,6 @@
 @inject('User', 'App\Http\Controllers\UserController')
 <div class="disc">
     <div class="disc-name">Saldo Total:</div>
-    <a class="disc-count"> {{ $user->sumSaldo($user) }}</a>
+    <a class="disc-count"> {{ $User->sumSaldo($user) }}</a>
 </div>
 @endsection
