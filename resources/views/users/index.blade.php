@@ -2,6 +2,30 @@
 @section('title','Users')
 @section('content')
 
+    <div class="form-group text-left">
+
+        <form action="{{route('users.consultar')}}" method="GET">
+            @csrf
+            @method("GET")
+
+            
+            <div class="title-items">Filtrar Users:</div>
+                <div class="item-form">
+                    <label for="nome">nome</label>
+                    <input type="text" class="form-control" name="nome" id="nome" value="">   
+                </div>
+               
+                <div class="item-form">
+                    <label for="nome">email</label>
+                    <input type="text" class="form-control" name="email" id="email" value="">
+            </div>
+            
+
+
+            <a><input type="submit" class="btn btn-secondary" value="Filtrar"></a>
+        </form>
+
+    </div>
     <table class="table">
         <thead>
             <tr>

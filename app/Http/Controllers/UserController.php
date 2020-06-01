@@ -13,7 +13,8 @@ use App\Http\Requests\UserPost2;
 use App\Http\Requests\UserPost3;
 use App\Http\Requests\UserPost4;
 use App\Http\Requests\UserPost5;
-
+use App\Conta;
+use App\Movimento;
 
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
 
     public function index(){
         $qry = User::query();
-        $users = $qry->paginate(10);
+        $users = $qry->paginate(15);
         //dd($users);
         return view('users.index')->withUsers($users);
     }
@@ -75,6 +76,7 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
+    /*
     public function create(){
 
         $newUser = new User;
@@ -82,7 +84,7 @@ class UserController extends Controller
             ->withUser($newUser);
     }
 
-    /*
+    
     funcao movida para o App\Http\Controllers\RegisterController
     a fim de funcionar com os emails automaticos!!!
 
@@ -101,7 +103,7 @@ class UserController extends Controller
         $newUser->adm = $validated_data['adm'];
         $newUser->bloqueado = $validated_data['bloqueado'];
         if ($request->hasFile('foto')) {
-            $path = $request->foto->store('storage/app/public/fotos');
+            $path = $request->foto->store('storage/fotos');
             $newUser->foto = basename($path);
         }
         $newUser->save();
@@ -126,8 +128,8 @@ class UserController extends Controller
         $user->NIF = $validated_data['NIF'];
         $user->telefone = $validated_data['telefone'];
         if ($request->hasFile('foto')) {
-            Storage::delete('storage/app/public/fotos' . $user->foto);
-            $path = $request->foto->store('storage/app/public/fotos');
+            Storage::delete('storage/fotos/' . $user->foto);
+            $path = $request->foto->store('storage/fotos/');
             $user->foto = basename($path);
         }
 
@@ -143,9 +145,37 @@ class UserController extends Controller
             ->withUser($user);
     }
 
-    public function delete(){
-        //todo
-        //quando tiver mais ou menos os outros a trabalhar tendo em conta que esta apaga todos os movimentos e contas que pertencem ao utilizador
+    public function delete(User $user){
+
+        $oldName = $user->name;
+        $oldID = $user->id;
+        $contas = $user->contas();
+        try{
+            foreach($contas as $conta){
+                $movimentos = $conta->movimentos();
+                foreach($movimentos as $movimento){
+                    $movimento->delete();
+                }
+                $conta->delete;
+            }
+            
+            return redirect()->route('apresentacao')
+            ->with('alert-msg', 'Contas de User "' . $oldName . '" foram apagadas com sucesso!')
+            ->with('alert-type', 'success');
+        } catch (\Throwable $th) {
+            // $th é a exceção lançada pelo sistema - por norma, erro ocorre no servidor BD MySQL
+            // Descomentar a próxima linha para verificar qual a informação que a exceção tem
+
+            if ($th->errorInfo[1] == 1451) {   // 1451 - MySQL Error number for "Cannot delete or update a parent row: a foreign key constraint fails (%s)"
+                return redirect()->route('apresentacao')
+                    ->with('alert-msg', 'Não foi possível apagar as contas de user "' . $oldName . '", porque  já estão em uso!')
+                    ->with('alert-type', 'danger');
+            } else {
+                return redirect()->route('apresentacao')
+                    ->with('alert-msg', 'Não foi possível apagar as contas de user "' . $oldName . '". Erro: ' . $th->errorInfo[2])
+                    ->with('alert-type', 'danger');
+            }
+        }
     }
 
     public function destroy_foto(User $user)
@@ -171,13 +201,13 @@ class UserController extends Controller
         if(!(Hash::check($validated_data['oldPassword'], $user->password))){
             return redirect()->back()
                 ->with('alert-msg', 'Password errada!')
-                ->with('alert-type', 'warning');
+                ->with('alert-type', 'danger');
         }
 
         if(strcmp($validated_data['newPassword'], $validated_data['confPassword']) != 0){
              return redirect()->back()
                 ->with('alert-msg', 'Passwords nao coincidem!')
-                ->with('alert-type', 'warning');
+                ->with('alert-type', 'danger');
         }
 
         $user->password=Hash::make($validated_data['newPassword']);
@@ -185,6 +215,47 @@ class UserController extends Controller
         return redirect()->route('apresentacao')
             ->with('alert-msg', 'Password de "' . $user->name . '" foi atualizada com sucesso!')
             ->with('alert-type', 'success');
+    }
+
+    public function consultarUser(Request $request){
+
+        
+        $users = User::all();
+
+        if ($request['nome'] != null){
+            $users = $users->where('name', 'like', '%' . $request['nome'] . '%');
+        }
+
+        if ($request['email'] != null){
+            $users = $users->where('email', 'like', '%' . $request['email'] . '%');
+        }
+
+        return view('users.index')->withUsers($users);
+    }
+
+    public function consultarAdm(Request $request){
+
+        $qry = User::query();
+        $users = $qry->paginate(10);
+
+        if ($request['nome'] != null){
+            $users = $users->where('name', 'like', '%' . $request['nome'] . '%');
+        }
+
+        if ($request['email'] != null){
+            $users = $users->where('email', 'like', '%' . $request['email'] . '%');
+        }
+
+        if ($request['tipo'] != null){
+            $users = $users->where('tipo', $request['tipo'] );
+        }$users = User::query();
+
+        if ($request['bloqueado'] != null){
+            $users = $users->where('bloqueado', $request['bloqueado']);
+        }
+
+
+        return view('users.admin')->withUsers($users);
     }
 
 }

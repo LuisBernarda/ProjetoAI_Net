@@ -34,20 +34,23 @@ Route::get('admin', 'DashboardController@index')->name('admin.dashboard')
     Route::put('users/{user}/storePassword', 'UserController@storePassword')->name('users.alterarPass');
     Route::put('users/{user}', 'UserController@update')->name('users.update');
     Route::delete('users/{user}/foto', 'UserController@destroy_foto')->name('users.foto.destroy');
-
+    Route::delete('users/{user}/contas', 'UserController@delete')->name('users.delete.contas');
+    Route::get('users/consultar', 'UserController@consultarUser')->name('users.consultar');
 
     //seccao adm users
 Route::middleware('verified')->group(function () {
-    Route::get('admin/users', 'UserController@admin')->name('admin.users')        
-        ->middleware('can:viewAdm,App\User');
-    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')        
-        ->middleware('can:viewOthers,App\User');
-    Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')       
-        ->middleware('can:viewOthers,App\User');
-    Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')       
-        ->middleware('can:viewOthers,App\User');
+    Route::get('admin/users', 'UserController@admin')->name('admin.users')       
+      ->middleware('can:viewAdm,App\User');
+    Route::put('admin/users/{user}/bloqueio', 'UserController@guardarBloqueio')->name('users.guardar.Bloqueio')       
+      ->middleware('can:viewOthers,App\User');
+    Route::put('admin/users/{user}/tipo', 'UserController@guardarTipo')->name('users.guardar.Tipo')      
+      ->middleware('can:viewOthers,App\User');
+    Route::get('admin/users/{user}/alterarTipo', 'UserController@alterarTipo')->name('users.alterarTipo')      
+      ->middleware('can:viewOthers,App\User');
     Route::get('admin/users/{user}/alterarBloqueio', 'UserController@alterarBloqueio')->name('users.alterarBloqueio')
-        ->middleware('can:viewOthers,App\User');
+      ->middleware('can:viewOthers,App\User');
+    Route::get('admin/users/consultar', 'UserController@consultarAdm')->name('admin.users.consultar')
+      ->middleware('can:viewAdm,App\User');
 });
 
 //Secção Conta
@@ -80,8 +83,7 @@ Route::middleware('verified')->group(function () {
       
     Route::delete('conta/{conta}/{movimento}', 'MovimentoController@destroy')->name('conta.movimentos.destroy');
         
-    Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');
-        
+    Route::post('conta/{conta}', 'MovimentoController@store')->name('conta.movimentos.store');       
 });
 
 Auth::routes(['verify' => true]);
