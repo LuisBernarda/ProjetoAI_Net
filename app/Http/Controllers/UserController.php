@@ -17,7 +17,7 @@ use App\Http\Requests\UserPost3;
 use App\Http\Requests\UserPost4;
 use App\Http\Requests\UserPost5;
 
-
+use App\Http\Requests\UserPost;
 
 class UserController extends Controller
 {
@@ -28,7 +28,7 @@ class UserController extends Controller
         //dd($users);
         return view('users.index')->withUsers($users);
     }
-    
+
     public function admin(){
 
         $qry = User::query();
@@ -39,24 +39,24 @@ class UserController extends Controller
     }
 
     public function alterarTipo(User $user){
-        
+
         return view('users.alterarTipo')
             ->withUser($user);
     }
 
     public function alterarBloqueio(User $user){
-        
+
         return view('users.alterarBloqueio')
             ->withUser($user);
     }
 
-    public function guardarTipo(UserPost3 $request, User $user){
+    public function guardarTipo(UserPost $request, User $user){
 
         //not functional
         //problemas com ignores
-        
+
         $validated_data = $request->validated();
-        
+
         $user->adm = $validated_data['adm'];
         $user->save();
         return redirect()->route('admin.users')
@@ -64,31 +64,29 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
 
-    public function guardarBloqueio(UserPost4 $request, User $user){
+    public function guardarBloqueio(UserPost $request, User $user){
 
         //not functional
         //problemas com ignores
-        
+
         $validated_data = $request->validated();
-        
+
         $user->bloqueado = $validated_data['bloqueado'];
         $user->save();
         return redirect()->route('admin.users')
             ->with('alert-msg', 'User "' . $user->name . '" foi alterado com sucesso!')
             ->with('alert-type', 'success');
-    }
 
+
+    }
+}
     /*
     public function create(){
 
         $newUser = new User;
-        return view('auth.register')
+        return view('users.create')
             ->withUser($newUser);
     }
-
-    
-    funcao movida para o App\Http\Controllers\RegisterController
-    a fim de funcionar com os emails automaticos!!!
 
     public function store(UserPost $request){
 
@@ -113,7 +111,6 @@ class UserController extends Controller
             ->with('alert-msg', 'User "' . $newUser->name . '" foi criado com sucesso!')
             ->with('alert-type', 'success');
     }
-    */
 
     public function edit(User $user){
 
@@ -121,10 +118,10 @@ class UserController extends Controller
             ->withUser($user);
     }
 
-    public function update(UserPost2 $request, User $user){
+    public function update(UserPost $request, User $user){
 
         $validated_data = $request->validated();
-        
+
         $user->name = $validated_data['name'];
         $user->email = $validated_data['email'];
         $user->NIF = $validated_data['NIF'];
@@ -150,7 +147,7 @@ class UserController extends Controller
     public function delete(User $user){
 
         $oldName = $user->name;
-        
+
         $contas = $user->contas;
         //dd($user->contas);
         try{
@@ -162,7 +159,7 @@ class UserController extends Controller
                 }
                 $conta->delete();
             }
-            
+
             return redirect()->route('apresentacao')
             ->with('alert-msg', 'Contas de User "' . $oldName . '" foram apagadas com sucesso!')
             ->with('alert-type', 'success');
@@ -198,7 +195,7 @@ class UserController extends Controller
         return $total_users;
     }
 
-    public function storePassword(UserPost5 $request, User $user)
+    public function storePassword(UserPost $request, User $user)
     {
         $validated_data = $request->validated();
 
@@ -223,7 +220,7 @@ class UserController extends Controller
 
     public function consultarUser(Request $request){
 
-        
+
         $users = User::all();
 
         if ($request['nome'] != null){
