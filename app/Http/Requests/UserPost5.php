@@ -25,7 +25,10 @@ class UserPost5 extends FormRequest
     public function rules()
     {
         return [
-            //
+            'oldPassword' =>   ['required', 'string'],
+            'newPassword' =>   ['required', 'string', 'min:8'],
+            'confPassword' =>   ['required', 'string', 'min:8'],
         ];
     }
 }
+

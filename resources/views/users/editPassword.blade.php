@@ -1,30 +1,30 @@
 @extends('layout_admin')
 @section('title','Alterar Password user' )
 @section('content')
-    <form method="POST" action="{{route('users.update', ['user' => $user]) }}" class="form-group" enctype="multipart/form-data">
+    <form method="POST" action="{{route('users.alterarPass', ['user' => $user]) }}" class="form-group" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="user_id" value="{{$user->id}}">
         <div class="form-group">
-            <label for="inputOldPassword">Password Antiga</label>
-            <input type="text" class="form-control" name="oldPassword" id="inputOldPassword" value="" >
-            @error('password')
+            <label for="oldPassword">Password Antiga</label>
+            <input type="password" class="form-control" name="oldPassword" id="oldPassword" value="" >
+            @error('oldPassword')
                 <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>
 
         <div class="form-group">
-            <label for="inputNewPassword">Password Nova</label>
-            <input type="text" class="form-control" name="newPassword" id="inputNewPassword" value="" >
-            @error('password')
+            <label for="newPassword">Password Nova</label>
+            <input type="password" class="form-control" name="newPassword" id="newPassword" value="" >
+            @error('newPassword')
                 <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>
 
         <div class="form-group">
-            <label for="inputConfPassword">Confirme Password</label>
-            <input type="text" class="form-control" name="confPassword" id="inputConfPassword" value="" >
-            @error('password')
+            <label for="confPassword">Confirme Password</label>
+            <input type="password" class="form-control" name="confPassword" id="confPassword" value="" >
+            @error('confPassword')
                 <div class="small text-danger">{{$message}}</div>
             @enderror
         </div>

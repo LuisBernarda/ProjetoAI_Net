@@ -110,6 +110,7 @@ class UserController extends Controller
             ->with('alert-type', 'success');
     }
     */
+
     public function edit(User $user){
 
         return view('users.edit')
@@ -131,13 +132,9 @@ class UserController extends Controller
         }
 
         $user->save();
-
-        /*
-        //todo alert msg quando rotas tiverem OK
-        return redirect()->route('#')
-            ->with('alert-msg', 'User "' . $validated_data['name'] . '" foi atualizado com sucesso!')
+        return redirect()->route('apresentacao')
+            ->with('alert-msg', 'User "' . $user->name . '" foi atualizado com sucesso!')
             ->with('alert-type', 'success');
-        */
     }
 
     public function mudarPass(User $user)
@@ -174,19 +171,19 @@ class UserController extends Controller
         if(!(Hash::check($validated_data['oldPassword'], $user->password))){
             return redirect()->back()
                 ->with('alert-msg', 'Password errada!')
-                ->with('alert-type', 'error');
+                ->with('alert-type', 'warning');
         }
 
         if(strcmp($validated_data['newPassword'], $validated_data['confPassword']) != 0){
              return redirect()->back()
                 ->with('alert-msg', 'Passwords nao coincidem!')
-                ->with('alert-type', 'error');
+                ->with('alert-type', 'warning');
         }
 
         $user->password=Hash::make($validated_data['newPassword']);
         $user->save();
         return redirect()->route('apresentacao')
-            ->with('alert-msg', 'Password de "' . $User->name . '" foi atualizada com sucesso!')
+            ->with('alert-msg', 'Password de "' . $user->name . '" foi atualizada com sucesso!')
             ->with('alert-type', 'success');
     }
 
