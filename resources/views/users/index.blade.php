@@ -7,24 +7,24 @@
         <form action="{{route('users.consultar')}}" method="GET">
             @csrf
             @method("GET")
-
-            
             <div class="title-items">Filtrar Users:</div>
+            <hr>
                 <div class="item-form">
                     <label for="nome">nome</label>
-                    <input type="text" class="form-control" name="nome" id="nome" value="">   
+                    <input type="text" class="form-control" name="nome" id="nome" value="" style="width:45%;">   
                 </div>
                
                 <div class="item-form">
                     <label for="nome">email</label>
-                    <input type="text" class="form-control" name="email" id="email" value="">
+                    <input type="text" class="form-control" name="email" id="email" value="" style="width:45%;">
+                </div>
             </div>
             
 
 
             <a><input type="submit" class="btn btn-secondary" value="Filtrar"></a>
         </form>
-
+        <hr>
     </div>
     <table class="table">
         <thead>

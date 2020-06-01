@@ -49,7 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function contas()
     {
-        //return $this->belongsToMany('App\Conta', 'autorizacoes_contas');
         return $this->hasMany('App\Conta');
     }
 
@@ -66,5 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getBloqueadoAttribute($bloqueado)
     {
         return $this->attributes['bloqueado'] = ($bloqueado) ? 'Bloqueado' : 'Normal';
+    }
+
+    public function contasPartilhas()
+    {
+            return $this->belongsToMany('App\Conta', 'autorizacoes_contas', 'user_id', 'conta_id')->withPivot('so_leitura');
     }
 }

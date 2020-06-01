@@ -4,7 +4,7 @@
     <form method="POST" action="{{route('users.update', ['user' => $user]) }}" class="form-group" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" name="user_id" value="{{$user->id}}">
+        
         @include('users.partials.create-edit')
         @empty($user->foto)
         @else
