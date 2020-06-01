@@ -22,7 +22,7 @@
         @auth
             <div class="avatar-area">
                 <span class="name-user">{{Auth::user()->name}}</span>
-                <img src="{{Auth::user()->url_foto ? asset('storage/app/public/fotos/' . Auth::user()->url_foto) : asset('img/default_img.png') }}">
+                <img src="{{Auth::user()->url_foto ? asset('storage/fotos/' . Auth::user()->url_foto) : asset('img/default_img.png') }}">
             </div>
 
         @else
@@ -30,7 +30,7 @@
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
             </div>
             <div class="avatar-area">
-                <a class="nav-link" href="{{ route('users.create') }}">Registar</a>
+                <a class="nav-link" href="{{ route('register') }}">Registar</a>
             </div>
         @endauth
         <div id="menuIcon">
