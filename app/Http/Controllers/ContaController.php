@@ -112,6 +112,9 @@ class ContaController extends Controller
         $oldName = $conta->nome;
 
         try {
+            foreach ($conta->movimentos as $movimento) {
+                $movimento->delete();
+            }
             $conta->delete();
             return redirect()->route('conta.index')
                 ->with('alert-msg', 'Conta "' . $conta->nome . '" foi apagado com sucesso!')
