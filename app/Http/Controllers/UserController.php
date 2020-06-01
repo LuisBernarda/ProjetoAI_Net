@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Conta;
+use App\Movimento;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\SoftDeletes;
 //ja n esta a ser utilizado, funcionalidades passaram para o register controller
 //use App\Http\Requests\UserPost;
 use App\Http\Requests\UserPost2;
 use App\Http\Requests\UserPost3;
 use App\Http\Requests\UserPost4;
 use App\Http\Requests\UserPost5;
-use App\Conta;
-use App\Movimento;
+
 
 
 class UserController extends Controller
@@ -148,15 +150,17 @@ class UserController extends Controller
     public function delete(User $user){
 
         $oldName = $user->name;
-        $oldID = $user->id;
-        $contas = $user->contas();
+        
+        $contas = $user->contas;
+        //dd($user->contas);
         try{
             foreach($contas as $conta){
-                $movimentos = $conta->movimentos();
+                $movimentos = $conta->movimentos;
+                 //dd($movimentos);
                 foreach($movimentos as $movimento){
                     $movimento->delete();
                 }
-                $conta->delete;
+                $conta->delete();
             }
             
             return redirect()->route('apresentacao')

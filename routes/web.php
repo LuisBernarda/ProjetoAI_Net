@@ -27,15 +27,17 @@ Route::get('admin', 'DashboardController@index')->name('admin.dashboard')
     
 
     //Seccao users
-
+Route::middleware('auth')->group(function () {
     Route::get('users', 'UserController@index')->name('users.index')->middleware('verified');
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
     Route::get('users/{user}/editPassword', 'UserController@mudarPass')->name('users.mudarPass');
     Route::put('users/{user}/storePassword', 'UserController@storePassword')->name('users.alterarPass');
     Route::put('users/{user}', 'UserController@update')->name('users.update');
     Route::delete('users/{user}/foto', 'UserController@destroy_foto')->name('users.foto.destroy');
-    Route::delete('users/{user}/contas', 'UserController@delete')->name('users.delete.contas');
+    Route::delete('users/{user}/contas', 'UserController@delete')->name('users.delete.contas')
+        ->middleware('password.confirm');
     Route::get('users/consultar', 'UserController@consultarUser')->name('users.consultar');
+});
 
     //seccao adm users
 Route::middleware('verified')->group(function () {

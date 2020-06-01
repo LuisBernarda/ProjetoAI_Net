@@ -15,7 +15,10 @@
             </div>
         @endempty
         <div class="form-group text-right">
-                <a href="{{route('users.mudarPass', ['user' => $user]) }}" class="btn btn-secondary">Alterar Password</a>
+                <a href="{{route('users.mudarPass', ['user' => $user]) }}" class="btn btn-secondary">Alterar Password</a>                
+                <button type="submit" class="btn btn-danger" name="deleteContas" form="form_delete_contas">Apagar Contas</button>
+
+
             @empty($user->foto)
             @else
                
@@ -30,6 +33,10 @@
 
     </form>
     <form id="form_delete_photo" action="{{route('users.foto.destroy', ['user' => $user])}}" method="POST">
+        @csrf
+        @method('DELETE')
+    </form>
+    <form id="form_delete_contas" action="{{route('users.delete.contas', ['user' => $user])}}" method="POST">
         @csrf
         @method('DELETE')
     </form>
