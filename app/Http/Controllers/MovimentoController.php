@@ -51,25 +51,30 @@ class MovimentoController extends Controller
         $newMovimento->conta_id = $conta->id;
         $newMovimento->data = $validated['data'];
         $newMovimento->valor = $validated['valor'];
-        $newMovimento->saldo_inicial = $conta->saldo_atual;
-
-        if ($validated['tipo'] === "D") {
-            $newMovimento->saldo_final = $conta->saldo_atual - $newMovimento->valor;
-        } else {
-            $newMovimento->saldo_final = $conta->saldo_atual + $newMovimento->valor;
-        }
-
-        $conta->saldo_atual = $newMovimento->saldo_final;
-
+        //$newMovimento->saldo_inicial = $conta->saldo_atual;
         $newMovimento->tipo = $validated['tipo'];
         $newMovimento->categoria_id = $validated['categoria'];
         $newMovimento->descricao = $validated['descricao'];
+
+        $newMovimento = $this->updateMovimento($validated, $conta, $newMovimento);
+
+
+        // if ($validated['tipo'] === "D") {
+        //     $newMovimento->saldo_final = $conta->saldo_atual - $newMovimento->valor;
+        // } else {
+        //     $newMovimento->saldo_final = $conta->saldo_atual + $newMovimento->valor;
+        // }
+
+        //$conta->saldo_atual = $newMovimento->saldo_final;
 
         if ($newMovimento->save()) {
             $this->saveFile($request, $newMovimento);
         }
 
         $conta->save();
+
+        $this->updateMovimentos($conta, $newMovimento);
+
         return redirect()->route('conta.consultar', [$conta]);
     }
 
@@ -157,28 +162,32 @@ class MovimentoController extends Controller
     {
 
         $listaMovimentos = $conta->movimentos();
-        $movimentosAnterior = $listaMovimentos->whereDate('data', '<=', date($movimento->data))->where('id', '<>', $movimento->id)
-            ->orderBy('data', 'DESC')->get();
+        if ($movimento->id == null) {
+            $movimentosAnterior = $listaMovimentos->whereDate('data', '<=', date($movimento->data))
+                ->orderBy('data', 'DESC')->get();
+        } else {
+            $movimentosAnterior = $listaMovimentos->whereDate('data', '<=', date($movimento->data))
+                ->where('id', '<>', $movimento->id)
+                ->orderBy('data', 'DESC')->get();
+        }
+
 
         if (sizeof($movimentosAnterior) < 1) {
             $movimento->saldo_inicial = $conta->saldo_abertura;
         } else {
             $movimento->saldo_inicial = $movimentosAnterior[0]->saldo_final;
-
         }
 
-            $movimento->valor = $validated['valor'];
-            if ($validated['tipo'] === "R") {
+        $movimento->valor = $validated['valor'];
+        if ($validated['tipo'] === "R") {
 
-                $movimento->saldo_final = $movimento->valor + $movimento->saldo_inicial;
-                return $movimento;
+            $movimento->saldo_final = $movimento->valor + $movimento->saldo_inicial;
+            return $movimento;
+        } elseif ($validated['tipo'] === "D") {
 
-            } elseif ($validated['tipo'] === "D") {
-
-                $movimento->saldo_final = $movimento->saldo_inicial - $validated['valor'];
-                return $movimento;
-
-            }
+            $movimento->saldo_final = $movimento->saldo_inicial - $validated['valor'];
+            return $movimento;
+        }
 
         return $movimento;
     }
